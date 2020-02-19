@@ -1,0 +1,192 @@
+<div class="modal right fade" id="TrainingModal" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div id="overlays" (click)="off()">
+        <div id="texts"> Category, Service Provider, Client and Level are not created yet </div>
+      </div>
+      <div class="modal-content">
+
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cancelModal()" ><span
+                      aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel2">Add Training </h4>
+          </div>
+
+          <div class="modal-body">
+
+
+              <div class="row">
+                <form [formGroup]="TrainingForm">
+                        <div class="col-md-12" style="margin-top: 15px;">
+                                <div class="col-md-6" style="position:relative;">
+                                    <label>Service Provider <span class="star text-danger">*</span></label>
+                                    <input type="text" class="form-control" formControlName="providername"(input)="getServiceProviderList($event.target.value);hidedropdown()"
+                                       id="servids" placeholder="Search Service Provider" autocomplete="off">
+                                        <select style="position: absolute;z-index: 2000;display: none;    height: 80px;
+                                        left: 15px;
+                                        right: 13px;
+                                        width: 297px;" id="selections"  class="dataser"class="form-control" size="5" (change)="Changeselect($event.target.value)">
+                                         <!-- <option value="null" selected>Select Option</option> -->
+                                            <ng-container *ngFor="let list of ServiceList ">
+                                              <option value="{{list.name}}">{{list.name}}</option>
+                                          </ng-container>
+                                       
+                                        </select>
+                                     
+                                    <small class="text-danger"
+                                        *ngIf="!TrainingForm.controls.providername.valid && TrainingForm.controls.providername.touched">Service
+                                        Provider is required</small>
+                                </div>
+                                <div class="col-md-6">
+                                    <label> Client <span class="star text-danger">*</span></label>
+                                    <input type="text" class="form-control" formControlName="clientname"(input)="getClientList($event.target.value);hidedropdown()"
+                                    id="servid2s" placeholder="Search Client" autocomplete="off">
+                                     <select style="position: absolute;z-index: 2000;display: none;    height: 80px;
+                                     left: 15px;
+                                     right: 13px;
+                                     width: 297px;" id="selection2s"  class="dataser"class="form-control" size="5" (change)="Changeselect2($event.target.value)">
+                                      <!-- <option value="null" selected>Select Option</option> -->
+                                         <ng-container *ngFor="let list of ClientList ">
+                                           <option value="{{list.name}}">{{list.name}}</option>
+                                       </ng-container>
+                                    
+                                     </select>
+                                    <!-- <input type="text" class="form-control" formControlName="clientname" list="clidata1s"(input)="getClientList($event.target.value);hidedropdown()"
+                                        placeholder="Search Client" autocomplete="off">
+                                        <datalist id="clidata1s">
+                                          <ng-container *ngFor="let list of ClientList ">
+                                              <option value="{{list.name}}"></option>
+                                          </ng-container>
+                                      </datalist> -->
+                                    <small class="text-danger"
+                                        *ngIf="!TrainingForm.controls.clientname.valid && TrainingForm.controls.clientname.touched">Select
+                                        Client is required</small>
+                                </div>
+                          </div>
+                    <div class="col-md-12" >
+
+                        <div class="col-md-6">
+                            <label> Category <span class="star text-danger">*</span></label>
+                            <input type="text" class="form-control" formControlName="categoryname"(input)="getTrCateList($event.target.value);hidedropdown()"
+                            id="servid4s" placeholder="Search Category" autocomplete="off">
+                             <select style="position: absolute;z-index: 2000;display: none;    height: 80px;
+                             left: 15px;
+                             right: 13px;
+                             width: 297px;" id="selection4s"  class="dataser"class="form-control" size="5" (change)="Changeselect4($event.target.value)">
+                              <!-- <option value="null" selected>Select Option</option> -->
+                                 <ng-container *ngFor="let list of CategoryList ">
+                                   <option value="{{list.name}}">{{list.name}}</option>
+                               </ng-container>
+                            
+                             </select>
+                            <!-- <input type="text" class="form-control" formControlName="categoryname" list="catdata1s"(input)="getTrCateList($event.target.value);hidedropdown()"
+                               placeholder="Search Category" autocomplete="off">
+                                <datalist id="catdata1s">
+                                    <ng-container *ngFor="let list of CategoryList ">
+                                        <option value={{list.name}}></option>
+                                    </ng-container>
+                                </datalist> -->
+                            <small class="text-danger"
+                                *ngIf="!TrainingForm.controls.categoryname.valid && TrainingForm.controls.categoryname.touched">Category is required</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label> Level  <span class="star text-danger">*</span></label>
+                            <input type="text" class="form-control" formControlName="levelname"(input)="getLevelList($event.target.value);hidedropdown()"
+                            id="servid3s" placeholder="Search Level" autocomplete="off">
+                             <select style="position: absolute;z-index: 2000;display: none;    height: 80px;
+                             left: 15px;
+                             right: 13px;
+                             width: 297px;" id="selection3s"  class="dataser"class="form-control" size="5" (change)="Changeselect3($event.target.value)">
+                              <!-- <option value="null" selected>Select Option</option> -->
+                                 <ng-container *ngFor="let list of LevelList ">
+                                   <option value="{{list.name}}">{{list.name}}</option>
+                               </ng-container>
+                            
+                             </select>
+                            <!-- <input type="text" class="form-control" formControlName="levelname"(input)="getLevelList($event.target.value);hidedropdown()"
+                                list="leveldata1s"  placeholder="Search Level" autocomplete="off">
+                                <datalist id="leveldata1s">
+                                    <ng-container *ngFor="let list of LevelList ">
+                                        <option value={{list.name}}></option>
+                                    </ng-container>
+                                </datalist> -->
+                            <small class="text-danger"
+                                *ngIf="!TrainingForm.controls.levelname.valid && TrainingForm.controls.levelname.touched">Level is required</small>
+                        </div>
+                    </div>
+                   
+                  <div class="col-md-12">
+                      <div class="col-md-12">
+                          <div class="form-group">
+                              <label> Name <span class="star text-danger">*</span></label>
+                              <input type="text" class="form-control" formControlName="name"  (keypress)="keyAlphavalue($event)">
+                              <small class="text-danger"
+                                  *ngIf="!TrainingForm.controls.name.valid && TrainingForm.controls.name.touched">
+                                  Name is required</small>
+                          </div>
+                      </div>
+                  </div>
+              
+                  <div class="col-md-12"  style="    height: 70px;">
+                 
+                      <div class="col-md-6">
+                          <label>Price <span class="star text-danger">*</span></label>
+                          <input type="email" class="form-control"(keypress)="keyAlpha($event)"
+                              formControlName="price">
+                          <select class="select-price" formControlName="pricetype">
+                              <option value="INR" selected>₹</option>
+                              <option value="DOLLER">$</option>
+                              <option value="EURO">€</option>
+                          </select>
+                          <small class="text-danger"
+                              *ngIf="!TrainingForm.controls.price.valid && TrainingForm.controls.price.touched">Price
+                              is required</small>
+
+                      </div>
+                      <div class="col-md-6">
+                        <label> Code <span class="star text-danger">*</span></label>
+                        <input type="email" class="form-control" formControlName="code">
+                        <small class="text-danger"
+                            *ngIf="!TrainingForm.controls.code.valid && TrainingForm.controls.code.touched">
+                            Code is required</small>
+                      </div>
+                  </div>
+                  <div class="col-md-12" style="    height: 70px;">
+                      <div class="col-md-12" style="margin-top: 15px;">
+                          <label>Course Details <span class="star text-danger">*</span></label>
+                          <!-- <app-ngx-editor [placeholder]="'Enter text here...'" [spellcheck]="true"  formControlName="trainingdesc"  maxlength="1000" >
+                              </app-ngx-editor> -->
+                          <textarea type="text" class="form-control" style="height: 80px"
+                              formControlName="trainingdesc"></textarea>
+                          <small class="text-danger"
+                              *ngIf="!TrainingForm.controls.trainingdesc.valid && TrainingForm.controls.trainingdesc.touched">Course
+                              Details is required</small>
+
+                      </div>
+                  </div>
+              </form>
+
+
+              </div>
+          </div>
+
+
+
+
+
+
+          <div class="modal-footer basic-footer ">
+
+              <div class="col-md-12">
+                  <div class="col-md-12">
+                      <button type="button" class="btn btn-sm btn-danger" id="btn-cancel"
+                          data-dismiss="modal" (click)="cancelModal()" >Cancel</button>&nbsp;&nbsp;
+                      <button class="btn btn-save btn-sm" id="btn-update" (click)="SubmitTraining()">Submit</button>
+                  </div>
+              </div>
+
+          </div>
+
+      </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div>
+

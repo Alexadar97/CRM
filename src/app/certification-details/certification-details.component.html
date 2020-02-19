@@ -1,0 +1,289 @@
+<div class="col-md-12" style="    margin: 10px 0 4px 0;padding:0px">
+  <h4 style="font-family: lato;font-weight: 700;">Certification Information &nbsp;&nbsp;<img src="assets/images/edit-img.png" data-toggle="tooltip" title="Edit"
+      (click)="Edit()" style="    width: 15px;cursor: pointer;"></h4>
+ <img src="assets/images/back.png" data-toggle="tooltip" style="   cursor: pointer;" title="Back" routerLink="/dashboard/certification" class="btn-back">
+</div>
+<div class="col-md-12" style="padding: 0px;    background: #F9F9F9;">
+  <div class="tabbar">
+    <div id="plannedTab" (click)="markTab('basic',$event)" class="tab tab_selected">General </div>
+
+  </div>
+</div>
+
+<!-- basic -->
+<div *ngIf="tab == 'basic'" class="col-md-12 tab-body" style="padding: 0px;  padding-bottom: 10px;  padding-top: 10px;">
+  <div class="col-md-5" style="padding:0px">
+    <div class="col-md-12" style="padding:0px;margin-top: 10px;">
+      <!-- <div class="col-md-12" >
+        <div class="col-md-5">
+          <h4 style="font-size: 15px;margin:7px 0;    color: #000;">General Information</h4>
+        </div>
+        <div class="col-md-7 text-head">
+        </div>
+      </div> -->
+      <div class="col-md-12" style="margin-top: 5px;">
+        <div class="col-md-4">
+          <h5>Name</h5>
+        </div>
+        <div class="col-md-8 " [innerHTML]="formatData(ViewListDate.name)">
+        </div>
+      </div>
+      <div class="col-md-12" style="margin-top: 5px;">
+        <div class="col-md-4">
+          <h5>Code</h5>
+        </div>
+        <div class="col-md-8" [innerHTML]="formatData(ViewListDate.code)">
+
+        </div>
+      </div>
+      <div class="col-md-12" style="margin-top: 5px;">
+        <div class="col-md-4">
+          <h5>Price</h5>
+        </div>
+        <div class="col-md-8">
+          <ng-container *ngIf="ViewListDate.pricetype == 'INR'">
+            ₹
+          </ng-container>
+          <ng-container *ngIf="ViewListDate.pricetype == 'DOLLER'">
+            $
+          </ng-container>
+          <ng-container *ngIf="ViewListDate.pricetype == 'EURO'">
+            €
+          </ng-container>
+          &nbsp;{{ViewListDate.price}}
+        </div>
+      </div>
+      <div class="col-md-12" style="margin-top: 5px;">
+          <div class="col-md-4">
+            <h5>Service Provider</h5>
+          </div>
+          <div class="col-md-8" [innerHTML]="formatData(ViewListDate.providername)">
+          </div>
+        </div>
+      <div class="col-md-12" style="margin-top: 5px;">
+        <div class="col-md-4">
+          <h5>Client</h5>
+        </div>
+        <div class="col-md-8 " [innerHTML]="formatData(ViewListDate.clientname)">
+        </div>
+      </div>
+
+      <div class="col-md-12" style="margin-top: 5px;">
+        <div class="col-md-4">
+          <h5>Category</h5>
+        </div>
+        <div class="col-md-8" [innerHTML]="formatData(ViewListDate.categoryname)">
+
+        </div>
+      </div>
+      <div class="col-md-12" style="margin-top: 5px;">
+        <div class="col-md-4">
+          <h5>Level</h5>
+        </div>
+        <div class="col-md-8" [innerHTML]="formatData(ViewListDate.levelname)">
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-7">
+
+  </div>
+
+</div>
+<!-- billing -->
+
+<div class="modal right fade" id="CertificateEditModal" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"  (click)="cancelModal()"  ><span
+            aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel2">Edit Certification </h4>
+      </div>
+
+      <div class="modal-body">
+
+
+        <div class="row">
+
+          <form [formGroup]="CertificateForm">
+            <div class="col-md-12" style="margin-top: 15px;">
+              <div class="col-md-6" style="position:relative;">
+                  <label>Service Provider <span class="star text-danger">*</span></label>
+                  <input type="text" class="form-control" formControlName="providername"(input)="getServiceProviderList($event.target.value);hidedropdown()"
+                     id="servidcd" placeholder="Search Service Provider" autocomplete="off">
+                      <select style="position: absolute;z-index: 2000;display: none;    height: 80px;
+                      left: 15px;
+                      right: 13px;
+                      width: 297px;" id="selectioncd"  class="dataser"class="form-control" size="5" (change)="Changeselect($event.target.value)">
+                       <!-- <option value="null" selected>Select Option</option> -->
+                          <ng-container *ngFor="let list of ServiceList ">
+                            <option value="{{list.name}}">{{list.name}}</option>
+                        </ng-container>
+                     
+                      </select>
+                   
+                  <small class="text-danger"
+                      *ngIf="!CertificateForm.controls.providername.valid && CertificateForm.controls.providername.touched">Service
+                      Provider is required</small>
+              </div>
+              <div class="col-md-6">
+                  <label> Client <span class="star text-danger">*</span></label>
+                  <input type="text" class="form-control" formControlName="clientname"(input)="getClientList($event.target.value);hidedropdown()"
+                  id="servidcd2" placeholder="Search Client" autocomplete="off">
+                   <select style="position: absolute;z-index: 2000;display: none;    height: 80px;
+                   left: 15px;
+                   right: 13px;
+                   width: 297px;" id="selectioncd2"  class="dataser"class="form-control" size="5" (change)="Changeselect2($event.target.value)">
+                    <!-- <option value="null" selected>Select Option</option> -->
+                       <ng-container *ngFor="let list of ClientList ">
+                         <option value="{{list.name}}">{{list.name}}</option>
+                     </ng-container>
+                  
+                   </select>
+                  <!-- <input type="text" class="form-control" formControlName="clientname" list="clidata1s"(input)="getClientList($event.target.value);hidedropdown()"
+                      placeholder="Search Client" autocomplete="off">
+                      <datalist id="clidata1s">
+                        <ng-container *ngFor="let list of ClientList ">
+                            <option value="{{list.name}}"></option>
+                        </ng-container>
+                    </datalist> -->
+                  <small class="text-danger"
+                      *ngIf="!CertificateForm.controls.clientname.valid && CertificateForm.controls.clientname.touched">
+                      Client is required</small>
+              </div>
+        </div>
+  <div class="col-md-12" >
+
+      <div class="col-md-6">
+          <label> Category <span class="star text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="categoryname"(input)="getTrCateList($event.target.value);hidedropdown()"
+          id="servidcd4" placeholder="Search Category" autocomplete="off">
+           <select style="position: absolute;z-index: 2000;display: none;    height: 80px;
+           left: 15px;
+           right: 13px;
+           width: 297px;" id="selectioncd4"  class="dataser"class="form-control" size="5" (change)="Changeselectcd4($event.target.value)">
+            <!-- <option value="null" selected>Select Option</option> -->
+               <ng-container *ngFor="let list of CategoryList ">
+                 <option value="{{list.name}}">{{list.name}}</option>
+             </ng-container>
+          
+           </select>
+          <!-- <input type="text" class="form-control" formControlName="categoryname" list="catdata1s"(input)="getTrCateList($event.target.value);hidedropdown()"
+             placeholder="Search Category" autocomplete="off">
+              <datalist id="catdata1s">
+                  <ng-container *ngFor="let list of CategoryList ">
+                      <option value={{list.name}}></option>
+                  </ng-container>
+              </datalist> -->
+          <small class="text-danger"
+              *ngIf="!CertificateForm.controls.categoryname.valid && CertificateForm.controls.categoryname.touched">Category is required</small>
+      </div>
+      <div class="col-md-6">
+          <label> Level  <span class="star text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="levelname"(input)="getLevelList($event.target.value);hidedropdown()"
+          id="servidcd3" placeholder="Search Level" autocomplete="off">
+           <select style="position: absolute;z-index: 2000;display: none;    height: 80px;
+           left: 15px;
+           right: 13px;
+           width: 297px;" id="selectioncd3"  class="dataser"class="form-control" size="5" (change)="Changeselectcd3($event.target.value)">
+            <!-- <option value="null" selected>Select Option</option> -->
+               <ng-container *ngFor="let list of LevelList ">
+                 <option value="{{list.name}}">{{list.name}}</option>
+             </ng-container>
+          
+           </select>
+          <!-- <input type="text" class="form-control" formControlName="levelname"(input)="getLevelList($event.target.value);hidedropdown()"
+              list="leveldata1s"  placeholder="Search Level" autocomplete="off">
+              <datalist id="leveldata1s">
+                  <ng-container *ngFor="let list of LevelList ">
+                      <option value={{list.name}}></option>
+                  </ng-container>
+              </datalist> -->
+          <small class="text-danger"
+              *ngIf="!CertificateForm.controls.levelname.valid && CertificateForm.controls.levelname.touched">Level is required</small>
+      </div>
+  </div>
+         
+            <div class="col-md-12" style="margin-top: 15px;    height: 70px;">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label> Name <span class="star text-danger">*</span></label>
+                  <input type="text" class="form-control" formControlName="name" (keypress)="keyAlphavalue($event)">
+                  <small class="text-danger"
+                    *ngIf="!CertificateForm.controls.name.valid && CertificateForm.controls.name.touched">
+                    Name is required</small>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label> Code <span class="star text-danger">*</span></label>
+                <input type="email" class="form-control" formControlName="code">
+                <small class="text-danger"
+                  *ngIf="!CertificateForm.controls.code.valid && CertificateForm.controls.code.touched">
+                  Code is required</small>
+              </div>
+            </div>
+
+            <div class="col-md-12" style="margin-top: 15px;    height: 70px;">
+              <div class="col-md-6">
+                <label>Price <span class="star text-danger">*</span></label>
+                <input type="text" class="form-control" formControlName="price" (keypress)="keyAlpha($event)">
+                <select class="select-price" formControlName="pricetype" id="pricesymbol">
+                  <option value="INR" selected>₹</option>
+                  <option value="DOLLER">$</option>
+                  <option value="EURO">€</option>
+                </select>
+                <small class="text-danger"
+                  *ngIf="!CertificateForm.controls.price.valid && CertificateForm.controls.price.touched">Price
+                  is required</small>
+
+              </div>
+              <div class="col-md-6">
+                <span style="font-size: 15px">Preferred Amount <span class="star text-danger">*</span></span>
+                <label class="checkbox-label">&nbsp;&nbsp;
+                  <!-- <input type="checkbox" (click)="preferred($event)" style="cursor:pointer" id="checked"> -->
+                  <span class="checkbox-custom rectangular"></span>
+              
+                
+                </label>
+                <ng-container *ngIf="preferredamount == false ">
+                  <input type="text" class="form-control"  (keypress)="keyAlpha($event)" formControlName="preferredamt"
+                    disabled>
+                </ng-container>
+                <ng-container *ngIf="preferredamount == true ">
+                  <input type="text" class="form-control" (keypress)="keyAlpha($event)" formControlName="preferredamt">
+                </ng-container>
+              </div>
+            </div>
+      
+         
+
+          </form>
+
+
+        </div>
+      </div>
+
+
+
+
+
+
+      <div class="modal-footer basic-footer ">
+
+        <div class="col-md-12">
+          <div class="col-md-12">
+            <button type="button" class="btn btn-sm btn-danger" id="btn-cancel"
+              data-dismiss="modal"  (click)="cancelModal()"  >Cancel</button>&nbsp;&nbsp;
+            <button class="btn btn-save btn-sm" id="btn-update" (click)="SubmitCertification()">Submit</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div>

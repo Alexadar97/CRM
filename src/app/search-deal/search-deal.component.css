@@ -1,0 +1,71 @@
+.search{
+    border: none;
+    box-shadow: none;
+    background-color: #F9F9F9;
+}
+.searcicon{
+    font-size: 15px;
+    position: absolute;
+    right: 45px;
+    bottom: 6px;
+    color: #000;
+}
+.tablesearch{
+    background-color: #F9F9F9;
+}
+.searchtbl td{
+    border-top: transparent;
+    font-size: 12px;
+}
+.btn-search{
+    background: #117C83;
+    color: #fff;
+    padding: 2px 11px;
+    font-size: 10px;
+}
+.btn-user{
+    padding: 0 0;
+    width: 100%;
+    font-size: 12px;
+    background: #D8D8D8;
+    border: 1px solid #979797;
+    border-radius: 0px;
+    margin-bottom: 7px;
+}
+
+.datatable{
+    font-size: 12px;
+    border: 1px solid #979797;
+}
+.typesdrop{
+    background: #F9F9F9;
+    position: absolute;
+    width: 95%;
+    top: 35px;
+    font-size: 12px;
+    z-index: 200;
+    /* box-shadow: 0 2px 6px 0px rgba(181,181,181,0.5); */
+    text-align: left;
+    border-radius: 3px;
+  
+  }
+  .typesdrop td{
+      padding: 5px;
+      
+  }
+  .typesdrop:focus{
+    outline:none;
+  }
+  .rightarrow{
+    padding: 0;
+    height: 0;
+    font-size: 12px;
+    width: 0;
+  }
+  .typesdrop tr:hover{
+      background-color: #E4E8F1;
+      color: #000000 !important;
+  }
+  .typesdrop tr:hover td{
+    color: #000000 !important;
+}

@@ -1,0 +1,114 @@
+<div class="container-fluid">
+  <div class="row" style="padding: 88px 125px 0px 62px;
+  background: #0370CF;">
+  
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 text-center" style="background: #0370CF;height: 100vh;">
+      <img src="assets/images/logo-img.svg" style="width: 85%;float: right;">
+      <!-- <h3 class="text-img">Integrated Contacts and Lead Management Systems</h3> -->
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 " style="background: #0370CF;height: 100vh;">
+      <div class="login-section card">
+        <div class="col-md-12" style="text-align: center;">
+          <img src="assets/images/login-logo.png" style="width: 120px;">
+          <p class="text">MEMBER LOGIN</p>
+        </div>
+        <div class="col-md-12">
+          <form [formGroup]="LoginForm">
+            <div class="form-group">
+              <label class="text-label">EMAIL ID</label>
+  
+              <input type="email" class="login-input" id="logintype" formControlName="email" value=""
+                placeholder="Your Email" autocomplete="off">
+              <i class=" 	far fa-envelope field-icon-start"></i>
+              <small class="text-danger"
+                *ngIf="!LoginForm.controls.email.valid && LoginForm.controls.email.touched"></small>
+            </div>
+            <div class="form-group">
+              <label class="text-label">PASSWORD</label>
+  
+              <input id="password-field" type="{{type}}" class="login-input" id="logintype1" placeholder="Your Password"
+                formControlName="password" autocomplete="off">
+              <i class=" 	fa fa-key field-icon-start"></i>
+              <span (click)="openpass()">
+                <ng-container *ngIf="openeye== true">
+                  <i class=" 	fa fa-eye-slash field-icon"></i>
+                </ng-container>
+                <ng-container *ngIf="openeye== false">
+                  <i class=" 	 	fa fa-eye field-icon"></i>
+                </ng-container>
+              </span>
+              <small class="text-danger"
+                *ngIf="!LoginForm.controls.password.valid && LoginForm.controls.password.touched"></small>
+            </div>
+            <div class="">
+              <span class="text-danger" style="font-size: 13px">{{errormsg}}</span><span></span>
+            </div>
+            <div class="col-md-6" style="    padding: 35px 0px 0px 0px;">
+              <span class="forgot" (click)="Forgot()">Forgot Password</span>
+            </div>
+            <div class="col-md-6" style="padding: 0px;">
+              <div class="submit">
+                <button type="submit" class="btn btn-md btn-submit  " (click)="login()">Login</button>
+              </div>
+            </div>
+            
+            
+          </form>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="Forgot" role="dialog" data-backdrop="static" data-keyboard="false" style="background-color: #0370CF;">
+  <div class="modal-dialog modal-md" style="width: 30%;margin-top: 125px;">
+    <div class="modal-content" style="    box-shadow: 9px 20px 17px 0 #0000003b;
+    border-radius: 10px">
+      <div class="modal-body" style="padding: 25px 25px 10px 25px;">
+        <div style="text-align: center;">
+        <img src="assets/images/login-logo.png" style="width: 120px;">
+        </div>
+        <h4 style="    color: #000000ad;
+        font-weight: bold;    font-size: 20px;
+        font-family: roboto;
+        margin-top: 25px;">Forgot your password?</h4>
+        <p style="    color: #000000ad;
+        font-size: 15px;">We’ll help you reset it and get back on track.</p>
+        <p style="    color: #000000ad;
+        font-size: 15px;
+        margin-top: 35px;">Enter your registered email id</p>
+        <form [formGroup]="ChangePass">
+        <input class="form-control" style="background: #F9F8F8;
+        border: 1px solid #d9d9d9;" formControlName="email">
+        </form>
+      </div>
+      <div class="modal-footer footer">
+        <button type="button" class="btn btn-sm btn-submit"(click)="submitPassword()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="ConfrimChangePasswords" role="dialog" data-backdrop="static" data-keyboard="false"
+style="background-color: #0370CF;">
+<div class="modal-dialog modal-md " style="width: 30%;margin-top: 125px;">
+  <div class="modal-content text-center" style="    box-shadow: 9px 20px 17px 0 #0000003b;
+border-radius: 10px">
+    <div class="modal-body" style="padding: 25px 25px 10px 25px;">
+      <div style="text-align: center;">
+        <img src="assets/images/login-logo.png" style="width: 120px;">
+      </div>
+      <h4 style="    color: #000000ad;
+    font-weight: bold;    font-size: 20px;
+    font-family: roboto;
+    margin-top: 25px;">Request Received!</h4>
+   <p style="    color: #000000ad;
+   font-size: 15px;">We’ve sent you instructions to reset your password, please check your email.</p>
+
+    <div class="modal-footer footer text-center">
+      <button type="button" class="btn btn-sm btn-submit" (click)="loginnow()">Back to Login</button>
+    </div>
+  </div>
+</div>
+</div>
+</div>

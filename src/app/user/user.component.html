@@ -1,0 +1,618 @@
+<app-spinner *ngIf="loading"></app-spinner>
+<div class="col-md-12" style="    margin: 10px 0 4px 0;padding:0px" *ngIf="lead_list?.length >0">
+
+    <div class="col-md-3" style="padding: 0px;">
+        <h4 style="    font-family: lato;font-weight: 700;">User &nbsp;&nbsp;<button class="btn btn-sm btn-new" (click)="userAdd()"><i
+                    class=" fa fa-plus"></i></button></h4>
+    </div>
+    <div class="col-md-5"></div>
+    <div class="col-md-4" style="padding: 0px;">
+        <input type="text" class="search-bar form-control" list="clidata"
+            (input)="SearchdataList($event.target.value);hidedropdown()" list="searcdata" autocomplete="off">
+        <i class="fa fa-search searcicon"></i>
+        <!-- <button  class="btn btn-md btn-bulk" data-toggle="modal" data-target="#CertificateModal" >Add Certification </button> -->
+    </div>
+</div>
+<div class="col-md-12 table-responsive" style="padding: 0;    padding-top: 10px;">
+    <table class="table" id="contacttable" *ngIf="lead_list?.length >0">
+        <thead>
+            <tr>
+                <th style="width: 5%;text-align: center;">S.No</th>
+                <th>
+                    Name
+                </th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Code</th>
+                <!-- <th>Last Contacted</th> -->
+                <!-- <th>Owner</th> -->
+                <th style="    width: 4%;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container
+                *ngFor="let data of lead_list| paginate: { itemsPerPage: 10, currentPage: p2,id: 'two'};let index=index">
+                <tr>
+                    <td style="cursor: pointer;text-align: center;" (click)="viewDetails(data)">{{(currentPage- 1) * 10 + index+1 }}</td>
+                    <td style="cursor: pointer;" (click)="viewDetails(data)"> <span>{{data.name}}&nbsp;{{data.lastname}}</span><br>
+
+
+                    </td>
+                    <td style="cursor: pointer;" (click)="viewDetails(data)">{{data.countryphcode}} {{data.phonenumber}}</td>
+                    <td style="cursor: pointer;" (click)="viewDetails(data)">{{data.emailid}}</td>
+                    <td style="cursor: pointer;" (click)="viewDetails(data)">{{data.employeecode}}</td>
+                    <!-- <td>NA</td> -->
+                    <!-- <td>NA</td> -->
+                    <td style=" cursor: pointer;   width: 4%;"><img src="assets/images/edit-tbl.svg" class="edit-tabl"
+                            (click)="Edit(data)"></td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+    <h4 *ngIf="lead_list?.length== 0"   style="text-align:center;padding:150px 0px"class="text-center"> User not created yet &nbsp;&nbsp;<button class="btn btn-sm btn-new" (click)="userAdd()"><i
+        class=" fa fa-plus"></i></button></h4>
+    <!-- <pagination-controls *ngIf="lead_list?.length >8" (pageChange)="p2 = $event" #api id="two" style="    font-size: 13px;
+  float: right;">
+    </pagination-controls> -->
+    <div style="float: right;margin-bottom: 35px;" *ngIf="lead_list?.length > 0" >
+        <button [disabled]="currentPage == 1" class="btn btn-default paginationbtn"
+      (click)="paginatePartList('prev')"><i class="fa fa-angle-left"></i></button>
+      <span style="font-size: 15px;
+        padding: 10px;">
+      <input id="currentPageInput" class="paginatecontrol" type="text" value="{{currentPage}}"
+        style="width: 50px;">
+      <i class="fa fa-search searchbtn" style="border: 1px solid #979797;
+      padding: 5px 4px;
+      position: relative;
+      top: 1px;
+      background-color: #b7b7b7;" (click)="searchPage()"></i>
+      of
+      {{totalPages}}
+      </span>
+      
+      <button [disabled]="currentPage == totalPages" class="btn btn-default paginationbtn"
+      (click)="paginatePartList('next')"><i class="fa fa-angle-right"></i></button>
+      </div>
+</div>
+
+<div class="modal right fade" id="UserModals" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="cancelModal()"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel2">Add User</h4>
+            </div>
+
+            <div class="modal-body">
+
+
+                <form [formGroup]="UserForm">
+                    <div class="col-md-12" style="margin-top: 15px;">
+                        <div class="col-md-6">
+                            <div class="" style="margin-top: 15px;">
+                                <label>Name <span class="star text-danger">*</span></label>
+                                <input type="text" class="form-control" formControlName="name"
+                                    (keypress)="keyAlphavalue($event)">
+                                <small class="text-danger"
+                                    *ngIf="!UserForm.controls.name.valid && UserForm.controls.name.touched">Name
+                                    is required</small>
+                            </div>
+                            <div class="" style="margin-top: 15px;">
+                                <label>Middle Name</label>
+                                <input type="text" class="form-control" formControlName="middlename"
+                                    (keypress)="keyAlphavalue($event)">
+
+                            </div>
+                            <div class="" style="margin-top: 15px;">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control" formControlName="lastname"
+                                    (keypress)="keyAlphavalue($event)">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="text-align: center;padding: 8px 0px;">
+                            <ng-container *ngIf="showimage ==false">
+                                <img src="assets/images/profile.svg" style="    height: 175px;
+                                width: 175px;">
+                            </ng-container>
+                            <ng-container *ngIf="showimage ==true">
+                                <img [src]="croppedImage" style="    height: 175px;
+                            width: 175px;" />
+                            </ng-container>
+                            <!-- <input type="file" (change)="fileChangeEvent($event)" /> -->
+                            <label id="upload_file" for="uploadFilePartidl1" class="btn btn-md addnew ">
+                                Upload Image</label>
+                            <input type="file" id="uploadFilePartidl1" #uploadFilePartid1 style="display: none;"
+                                (change)="fileChangeEvent($event)" accept="image/x-png,image/gif,image/jpeg">
+
+
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-12" style="margin-top: 15px;">
+                        <div class="col-md-6">
+                            <label>Phone Number <span class="star text-danger">*</span></label>
+                            <input type="text" class="form-control" formControlName="countryphcode"  style="position: absolute;
+                            bottom: 0; left: 15px;     width: 22%; padding: 0;  padding-left: 2px;" list="phn"(input)="PhoneCode($event.target.value);hidedropdown()">
+                            <input type="text" class="form-control" formControlName="phonenumber" 
+                            autocomplete="off" maxlength="13" style=" width: 76%;
+                            float: right;"  (keypress)="keyAlpha($event)">
+                            <datalist id="phn">
+                              <ng-container *ngFor="let list of countriesArray">
+                                  <option value="{{list.code}}">{{list.name}}</option>
+                              </ng-container>
+                          </datalist>
+                            <!-- <input type="text" class="form-control" formControlName="phonenumber" maxlength="13"minlength="10"
+                                (keypress)="keyAlpha($event)"> -->
+
+                            <small class="text-danger"  style="position: absolute; bottom: -20px; width: 100%;right: -19px;"
+                                *ngIf="!UserForm.controls.phonenumber.valid && UserForm.controls.phonenumber.touched">Phone
+                                Number
+                                is required</small>
+                            <!-- <span class="alt-num" style="margin-top: 10px;" (click)="altnumber()"><img
+                                src="assets/images/plus-circle.png">&nbsp;&nbsp; Add Alternate Phone
+                            Number</span> -->
+                        </div>
+                        <div class="col-md-6">
+                            <label>Alternate Phone Number</label>
+                            <input type="text" class="form-control" formControlName="altercountryphcode"  style="position: absolute;
+                            bottom: 0; left: 15px;     width: 22%; padding: 0;  padding-left: 2px;" list="phnalt">
+                            <input type="text" class="form-control" formControlName="alterphonenum" 
+                            autocomplete="off" maxlength="13" style=" width: 76%;
+                            float: right;"  (keypress)="keyAlpha($event)">
+                           
+                                <datalist id="phnalt">
+                                    <ng-container *ngFor="let list of countriesArray">
+                                        <option value="{{list.code}}">{{list.name}}</option>
+                                    </ng-container>
+                                </datalist>
+                                <small class="text-danger"
+                                *ngIf="!UserForm.controls.alterphonenum.valid && UserForm.controls.alterphonenum.touched">Alternate Phone Number
+                                is required </small>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12" style="margin-top: 15px;">
+                        <div class="col-md-6">
+                            <label>User Code <span class="star text-danger">*</span></label>
+                            <input type="text" class="form-control" formControlName="employeecode">
+                            <small class="text-danger"
+                                *ngIf="!UserForm.controls.employeecode.valid && UserForm.controls.employeecode.touched">User
+                                Code
+                                is required</small>
+
+                        </div>
+                        <div class="col-md-6">
+                            <label>Email <span class="star text-danger">*</span></label>
+                            <input type="email" class="form-control" formControlName="emailid">
+                            <small class="text-danger"
+                                *ngIf="!UserForm.controls.emailid.valid && UserForm.controls.emailid.touched">Email
+                                is required</small>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12" style="margin-top: 15px;">
+                        <div class="col-md-6">
+                            <div class="">
+                                <label>DOB</label>
+                                <input type="text" placement="bottom" class="form-control" bsDatepicker
+                                    [bsConfig]="{ adaptivePosition: true,dateInputFormat: 'DD-MM-YYYY', showWeekNumbers:false }"
+                                    formControlName="dob" id="datedobs" autocomplete="off">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="">
+                                <label>Blood Group</label>
+                                <!-- <input type="text" class="form-control" formControlName="bloodgroup"> -->
+                                <select class="form-control" formControlName="bloodgroup" (change)="blood_gourp($event.target.value)">
+                                    <option selected disabled>Select Blood Group</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" style="margin-top: 15px;">
+                        <div class="col-md-6">
+                            <div class="">
+                                <label>Door No</label>
+                                <input type="text" class="form-control" formControlName="doorno">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="">
+                                <label>Street</label>
+                                <input type="text" class="form-control" formControlName="street">
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="col-md-12" style="margin-top: 15px;">
+                        <div class="col-md-6">
+                            <label>Country</label>
+
+                            <input type="text" class="form-control" formControlName="country" list="data">
+
+                            <!-- <small class="text-danger"
+                                            *ngIf="!UserForm.controls.country.valid && UserForm.controls.country.touched">country
+    
+                                            is required</small> -->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="">
+                                <label>State</label>
+                                <input type="text" class="form-control" formControlName="state" list="catedata"
+                                    id="searchglobalstate">
+
+
+                                <!-- <small class="text-danger"
+                                                *ngIf="!UserForm.controls.state.valid && UserForm.controls.state.touched">state
+    
+                                                is required</small> -->
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12 pins" style="margin-top: 15px;">
+
+                        <div class="col-md-6">
+                            <div class="">
+
+                                <label>City</label>
+                                <input type="text" class="form-control" formControlName="city" list="citydata">
+
+
+                                <!-- <small class="text-danger"
+                                            *ngIf="!UserForm.controls.city.valid && UserForm.controls.city.touched">city
+
+                                            is required</small> -->
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label>Pincode</label>
+                            <input type="text" class="form-control" (keypress)="keyAlpha($event)" maxlength="6"
+                                formControlName="pincode" />
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer basic-footer ">
+
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-sm btn-danger" id="btn-cancel" data-dismiss="modal"
+                            (click)="cancelModal()">Cancel</button>&nbsp;&nbsp;
+                        <button class="btn btn-save btn-sm" type="submit" id="btn-update"
+                            (click)="SubmitUser()">Submit</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div>
+<div class="modal right fade" id="imageCropped" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="cancelModal()"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel2">Crop Image</h4>
+            </div>
+            <div class="modal-body" style="padding-top: 50px;">
+                <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                    [aspectRatio]="2 / 2" format="png" (imageCropped)="imageCropped($event)"
+                    (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()">
+                </image-cropper>
+
+                <h4 style="    text-align: center;
+                color: #a09999;
+                font-family: lato;
+                padding: 35px 0;">Crop and adjust image and make sure your face is in focus.</h4>
+            </div>
+            <div class="modal-footer basic-footer">
+
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-save btn-sm" type="submit" id="btn-update"
+                            (click)="CropSubmit()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal right fade" id="UserEditModals" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="cancelModal()"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel2">Edit User</h4>
+            </div>
+
+            <div class="modal-body">
+
+
+                <form [formGroup]="UserForm">
+                    <div class="col-md-12" style="margin-top: 15px;">
+                        <div class="col-md-6">
+                            <div class="" style="margin-top: 15px;">
+                                <label>Name <span class="star text-danger">*</span></label>
+                                <input type="text" class="form-control" formControlName="name"
+                                    (keypress)="keyAlphavalue($event)">
+                                <small class="text-danger"
+                                    *ngIf="!UserForm.controls.name.valid && UserForm.controls.name.touched">Name
+                                    is required</small>
+                            </div>
+                            <div class="" style="margin-top: 15px;">
+                                <label>Middle Name</label>
+                                <input type="text" class="form-control" formControlName="middlename"
+                                    (keypress)="keyAlphavalue($event)">
+
+                            </div>
+                            <div class="" style="margin-top: 15px;">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control" formControlName="lastname"
+                                    (keypress)="keyAlphavalue($event)">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="text-align: center;padding: 8px 0px;">
+                            <ng-container *ngIf=" showimageedit == true">
+                                <img src="assets/images/profile.svg" style="    height: 175px;
+                                width: 175px;">
+                            </ng-container>
+                            <ng-container *ngIf="showimage ==true ">
+                                <img [src]="croppedImage" style="    height: 175px;
+                            width: 175px;" />
+                            </ng-container>
+                            <ng-container *ngIf="getImageshow ==true">
+                                <img src="{{getImage}}" alt="" style="    height: 175px;
+                                width: 175px;">
+                            </ng-container>
+                            <!-- <input type="file" (change)="fileChangeEvent($event)" /> -->
+                            <label id="upload_file" for="uploadFilePartidl2" class="btn btn-md addnew ">
+                                Upload Image</label>
+                            <input type="file" id="uploadFilePartidl2" #uploadFilePartid2 style="display: none;"
+                                (change)="fileChangeEventedit($event)" accept="image/x-png,image/gif,image/jpeg">
+
+
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-12" style="margin-top: 15px;">
+                        <div class="col-md-6">
+                            <label>Phone Number <span class="star text-danger">*</span></label>
+                            <input type="text" class="form-control" formControlName="countryphcode"  style="position: absolute;
+                            bottom: 0; left: 15px;     width: 22%; padding: 0;  padding-left: 2px;" list="phn"(input)="PhoneCode($event.target.value);hidedropdown()">
+                            <input type="text" class="form-control" formControlName="phonenumber" 
+                            autocomplete="off" maxlength="13" style=" width: 76%;
+                            float: right;"  (keypress)="keyAlpha($event)">
+                            <datalist id="phn">
+                              <ng-container *ngFor="let list of countriesArray">
+                                  <option value="{{list.code}}">{{list.name}}</option>
+                              </ng-container>
+                          </datalist>
+                            <!-- <input type="text" class="form-control" formControlName="phonenumber" maxlength="13"minlength="10"
+                                (keypress)="keyAlpha($event)"> -->
+
+                            <small class="text-danger"  style="position: absolute; bottom: -20px; width: 100%;right: -19px;"
+                                *ngIf="!UserForm.controls.phonenumber.valid && UserForm.controls.phonenumber.touched">Phone
+                                Number
+                                is required</small>
+                            <!-- <span class="alt-num" style="margin-top: 10px;" (click)="altnumber()"><img
+                                src="assets/images/plus-circle.png">&nbsp;&nbsp; Add Alternate Phone
+                            Number</span> -->
+                        </div>
+                        <div class="col-md-6">
+                            <label>Alternate Phone Number</label>
+                            <input type="text" class="form-control" formControlName="altercountryphcode"  style="position: absolute;
+                            bottom: 0; left: 15px;     width: 22%; padding: 0;  padding-left: 2px;" list="phnalt">
+                            <input type="text" class="form-control" formControlName="alterphonenum" 
+                            autocomplete="off" maxlength="13" style=" width: 76%;
+                            float: right;"  (keypress)="keyAlpha($event)">
+                           
+                                <datalist id="phnalt">
+                                    <ng-container *ngFor="let list of countriesArray">
+                                        <option value="{{list.code}}">{{list.name}}</option>
+                                    </ng-container>
+                                </datalist>
+                                <small class="text-danger"
+                                *ngIf="!UserForm.controls.alterphonenum.valid && UserForm.controls.alterphonenum.touched">Alternate Phone Number
+                                is required </small>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12" style="margin-top: 15px;">
+                        <div class="col-md-6">
+                            <label>User Code <span class="star text-danger">*</span></label>
+                            <input type="text" class="form-control" formControlName="employeecode">
+                            <small class="text-danger"
+                                *ngIf="!UserForm.controls.employeecode.valid && UserForm.controls.employeecode.touched">User
+                                Code
+                                is required</small>
+
+                        </div>
+                        <div class="col-md-6">
+                            <label>Email <span class="star text-danger">*</span></label>
+                            <input type="email" class="form-control" formControlName="emailid">
+                            <small class="text-danger"
+                                *ngIf="!UserForm.controls.emailid.valid && UserForm.controls.emailid.touched">Email
+                                is required</small>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12" style="margin-top: 15px;">
+                        <div class="col-md-6">
+                            <div class="">
+                                <label>DOB</label>
+                                <input type="text" placement="bottom" class="form-control" bsDatepicker
+                                    [bsConfig]="{ adaptivePosition: true,dateInputFormat: 'DD-MM-YYYY', showWeekNumbers:false }"
+                                    formControlName="dob" id="datedobds" autocomplete="off">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="">
+                                <label>Blood Group</label>
+                               <!-- <input type="text" class="form-control" formControlName="bloodgroup"> -->
+                               <select class="form-control" formControlName="bloodgroup" (change)="blood_gourp($event.target.value)">
+                                <option selected disabled>Select Blood Group</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                            </select>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" style="margin-top: 15px;">
+                        <div class="col-md-6">
+                            <div class="">
+                                <label>Door No</label>
+                                <input type="text" class="form-control" formControlName="doorno">
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="">
+                                <label>Street</label>
+                                <input type="text" class="form-control" formControlName="street">
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="col-md-12" style="margin-top: 15px;">
+                        <div class="col-md-6">
+                            <label>Country</label>
+
+                            <input type="text" class="form-control" formControlName="country" list="data">
+
+                            <!-- <small class="text-danger"
+                                            *ngIf="!UserForm.controls.country.valid && UserForm.controls.country.touched">country
+    
+                                            is required</small> -->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="">
+                                <label>State</label>
+                                <input type="text" class="form-control" formControlName="state" list="catedata"
+                                    id="searchglobalstate">
+
+
+                                <!-- <small class="text-danger"
+                                                *ngIf="!UserForm.controls.state.valid && UserForm.controls.state.touched">state
+    
+                                                is required</small> -->
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12" style="margin-top: 15px;">
+
+                        <div class="col-md-6">
+                            <div class="">
+
+                                <label>City</label>
+                                <input type="text" class="form-control" formControlName="city" list="citydata">
+
+
+                                <!-- <small class="text-danger"
+                                            *ngIf="!UserForm.controls.city.valid && UserForm.controls.city.touched">city
+  
+                                            is required</small> -->
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label>Pincode</label>
+                            <input type="text" class="form-control" (keypress)="keyAlpha($event)" maxlength="6"
+                                formControlName="pincode" />
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer basic-footer ">
+
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-sm btn-danger" id="btn-cancel" data-dismiss="modal"
+                            (click)="cancelModal()">Cancel</button>&nbsp;&nbsp;
+                        <button class="btn btn-save btn-sm" type="submit" id="btn-update"
+                            (click)="SubmitEditUser()">Submit</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div>
+<div class="modal right fade" id="imageCroppededit" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="cancelModal()"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel2">Crop Image</h4>
+            </div>
+            <div class="modal-body" style="padding-top: 50px;">
+                <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+                    [aspectRatio]="2 / 2" format="png" (imageCropped)="imageCropped($event)"
+                    (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()">
+                </image-cropper>
+
+                <h4 style="    text-align: center;
+                color: #a09999;
+                font-family: lato;
+                padding: 35px 0;">Crop and adjust image and make sure your face is in focus.</h4>
+            </div>
+            <div class="modal-footer basic-footer">
+
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-save btn-sm" type="submit" id="btn-update"
+                            (click)="CropSubmitedit()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

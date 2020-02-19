@@ -1,0 +1,107 @@
+input.login-input {
+    background: #FFFFFF;
+    border: 1px solid #DFE2E6;
+    box-shadow: 0 0 3px 0 rgba(0,0,0,0.05);
+    border-radius: 3px;
+    width: 100%;
+    height: 40px;
+    padding: 19px;
+    font-weight: bold;
+    font-size: 12px;
+    font-family: montserrat;
+    color: #000;
+    padding-left:40px;
+}
+input.login-input,.btn-submit:focus{
+    outline: none;
+}
+.login-input::placeholder {
+    color: #a3a3a3;
+    opacity: 1; /* Firefox */
+  }
+.login-section{
+  margin:0px 35px 0px 62px;
+  padding: 31px 43px 435px 31px;
+  border-radius: 10px;
+  box-shadow: 9px 20px 17px 0 rgba(0,0,0,0.23);
+}
+.btn-submit {
+  background: #0F5796;
+  color: #fff;
+  padding: 6px 50px;
+  box-sizing: border-box;
+  height: 40px;
+  font-size: 18px;
+  border: 1px solid #D9D9D9;
+  border-radius: 4px;
+  transition: .2s;
+}
+.btn-submit:hover{
+  box-shadow: 0px 0px 4px -1px #0F5796;
+  border: 1px solid #0F5796;
+  transition: .2s;
+}
+
+.submit{
+    float: right;
+    margin: 32px 0px 0px 0px;
+}
+.text{
+    font-family: roboto;
+    font-size: 25px;
+    color: rgba(0,0,0,0.68);
+    font-weight: bold;
+    padding: 10px 0;
+    margin: 0;
+}
+.field-icon {
+    float: right;
+    margin-left: 0px;
+    margin-top: -28px;
+    margin-right: 20px;
+    position: relative;
+    z-index: 2;
+    color: #bebfc0;
+    cursor: pointer;
+  }
+  .field-icon-start{
+    float: left;
+    margin-left: 0px;
+    margin-top: -28px;
+    margin-right: 26px;
+    position: relative;
+    z-index: 2;
+    color: #bebfc0;
+    padding-left: 11px;
+  }
+  .text-label{
+    color: rgba(0,0,0,0.68);
+    font-size: 20px;
+    font-family: roboto;
+    font-weight: 100;
+    padding: 5px 0;
+  }
+  .text-img{
+    font-family: Roboto;
+    color: #1B2733;
+    font-weight: bold;
+  }
+  .forgot{
+    margin: 35px 0px 0px 0px;
+    color: #004C8E;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  .form-group{
+    margin-bottom: 10px;
+  }
+  .modal-footer{
+    border-top: none;
+    padding: 20px 23px;
+    text-align: center !important;
+  }
+  .btn-submit{
+    background: #0F5796;
+    color: #fff;
+    padding: 5px 30px;
+  }

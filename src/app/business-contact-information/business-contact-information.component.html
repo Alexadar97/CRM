@@ -1,0 +1,769 @@
+<div class="col-md-12" style="    margin: 10px 0 4px 0;padding:0px">
+  <h4 style="    font-family: lato;">Corporate Contact Information &nbsp;&nbsp;<img src="assets/images/edit-img.png" data-toggle="tooltip" title="Edit"
+    (click)="Edit()" style="    width: 15px;cursor: pointer;"></h4>
+<img src="assets/images/back.png" data-toggle="tooltip" style="   cursor: pointer;" title="Back" routerLink="/dashboard/BusinessContact" class="btn-back">
+
+</div>
+<div class="col-md-12" style="padding: 0px;    background: #F9F9F9;">
+  <div class="tabbar">
+    <div id="plannedTab" (click)="markTab('basic',$event)" class="tab tab_selected">General </div>
+    <div (click)="markTab('billing',$event)" class="tab">Contact </div>
+    <!-- <div (click)="markTab('enquiries',$event)" class="tab">Enquiries</div> -->
+  </div>
+</div>
+
+<!-- basic -->
+<div *ngIf="tab == 'basic'" class="col-md-12 tab-body" style="padding: 0px;  padding-bottom: 10px;  padding-top: 10px;">
+  <div class="col-md-6" style="padding:0px">
+    <div class="col-md-12" style="padding:10px 0px;">
+      <!-- <div class="col-md-12">
+        <div class="col-md-4">
+          <h4 style="font-size: 15px;margin:7px 0;    color: #000;">General Information</h4>
+        </div>
+        <div class="col-md-8 text-heads">
+        </div>
+      </div> -->
+      <div class="col-md-12" style="margin-top: 5px;">
+        <div class="col-md-4">
+          <h5>Company Name</h5>
+        </div>
+        <div class="col-md-8 " [innerHTML]="formatData(ViewListDate.companyname)">
+
+        </div>
+      </div>
+      <div class="col-md-12" style="margin-top: 5px;">
+        <div class="col-md-4">
+          <h5>Company Email</h5>
+        </div>
+        <div class="col-md-8" [innerHTML]="formatData(ViewListDate.companyemailid)">
+
+        </div>
+      </div>
+      <div class="col-md-12" style="margin-top: 5px;">
+        <div class="col-md-4">
+          <h5>GST</h5>
+        </div>
+        <div class="col-md-8 " [innerHTML]="formatData(ViewListDate.gst)">
+        </div>
+      </div>
+      <div class="col-md-12"style="margin-top: 5px;">
+        <div class="col-md-4">
+          <h5>Door No</h5>
+        </div>
+        <div class="col-md-8" [innerHTML]="formatData(ViewListDate.doorno)">
+
+        </div>
+      </div>
+      <div class="col-md-12"style="margin-top: 5px;">
+        <div class="col-md-4">
+          <h5>Street</h5>
+        </div>
+        <div class="col-md-8" [innerHTML]="formatData(ViewListDate.street)">
+
+        </div>
+      </div>
+      <div class="col-md-12"style="margin-top: 5px;">
+        <div class="col-md-4">
+          <h5>Country</h5>
+        </div>
+        <div class="col-md-8" [innerHTML]="formatData(ViewListDate.country)">
+
+        </div>
+      </div>
+      <div class="col-md-12"style="margin-top: 5px;">
+        <div class="col-md-4">
+          <h5>State</h5>
+        </div>
+        <div class="col-md-8" [innerHTML]="formatData(ViewListDate.state)">
+
+        </div>
+      </div>
+      <div class="col-md-12"style="margin-top: 5px;">
+        <div class="col-md-4">
+          <h5>City</h5>
+        </div>
+        <div class="col-md-8" [innerHTML]="formatData(ViewListDate.city)">
+
+        </div>
+      </div>
+      <div class="col-md-12"style="margin-top: 5px;">
+        <div class="col-md-4">
+          <h5>Pincode</h5>
+        </div>
+        <div class="col-md-8" [innerHTML]="formatData(ViewListDate.pincode)">
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12" style="padding:0px;">
+      <div class="col-md-12">
+        <div class="col-md-4">
+          <h4  style="font-size: 15px;margin:7px 0;    color: #000;">Lead Information</h4>
+        </div>
+        <div class="col-md-8 text-heads">
+        </div>
+      </div>
+      <div class="col-md-12" style="margin-top: 5px;">
+        <div class="col-md-4">
+          <h5>Lead Source</h5>
+        </div>
+        <div class="col-md-8 " [innerHTML]="formatData(ViewListDate.leadtype)">
+
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-4" style="margin-top: 5px;">
+          <h5>Additional Lead Info</h5>
+        </div>
+        <div class="col-md-8 " [innerHTML]="formatData(ViewListDate.leadname)">
+
+        </div>
+      </div>
+      <!-- <div class="col-md-12" style="margin-top: 5px;">
+        <ng-container *ngIf="ViewListDate.userrole == 'fresher'">
+          <div class="col-md-4">
+            <h5>Institute Name</h5>
+          </div>
+          <div class="col-md-8" [innerHTML]="formatData(ViewListDate.orgname)">
+  
+          </div>
+          </ng-container>
+          <ng-container *ngIf="ViewListDate.userrole != 'fresher'">
+            <div class="col-md-4">
+              <h5>Company Name</h5>
+            </div>
+            <div class="col-md-8" [innerHTML]="formatData(ViewListDate.orgname)">
+    
+            </div>
+            </ng-container>
+      </div> -->
+
+    </div>
+  </div>
+  <div class="col-md-6">
+    <!-- <ng-container *ngIf="showDeals == false">
+    <div class="col-md-12" style="    text-align: center;
+    padding: 60px 0 0 0;">
+    <img src="assets/images/deal-hand.png" style="    width: 11%;">
+    <h3 style="    font-size: 15px;">No Deals in Progress</h3>
+    <button class="btn btn-sm yes" (click)="CreateDeal()">Create New Deal</button>
+    </div>
+    </ng-container>
+    <ng-container *ngIf="showDeals == true ">
+    <div class="col-md-12" style="margin-top: 10px;">
+      <div class="col-md-3">
+        <h4 style="font-size: 15px;">On going Deals</h4>
+      </div>
+      <div class="col-md-5 text-head">
+      </div>
+      <div class="col-md-4">
+       
+      </div>
+    </div>
+    <div class="col-md-12 ">
+      <div class="col-md-12 table-responsive">
+        <h5 style="margin-top: 15px;">Service</h5>
+        <table class="table servicetbl">
+
+          <tr>
+            <td style="border-right: 1px solid #E3E3E3;width:20%">S.No</td>
+            <td style="border-right: 1px solid #E3E3E3;">Service Type</td>
+            <td style="border-right: 1px solid #E3E3E3;">Service Name</td>
+            <td style="border-right: 1px solid #E3E3E3;">Price</td>
+            <td>Date</td>
+          </tr>
+
+          <tr *ngFor="let data of ServiceList;let index=index">
+            <td style="border-right: 1px solid #E3E3E3;">{{index+1}}</td>
+            <td style="border-right: 1px solid #E3E3E3;">{{data.servicetype}}</td>
+            <td style="border-right: 1px solid #E3E3E3;">{{data.name}}</td>
+            <td style="border-right: 1px solid #E3E3E3;">{{data.price}}</td>
+            <td>{{data.date}}</td>
+          </tr>
+
+        </table>
+
+        <h5 style="margin-top: 15px;">Notes</h5>
+        <h5 style="margin-top: 15px;">{{ViewListDate.notes}}</h5>
+      </div>
+    </div>
+    </ng-container> -->
+  </div>
+  <!-- <div class="col-md-12">
+    <div class="col-md-12" style="padding:0px;margin-top: 10px;">
+      <div class="col-md-12" style="padding:0px">
+        <div class="col-md-1">
+          <h4 style="font-size: 15px;margin:7px 0">Activities</h4>
+        </div>
+        <div class="col-md-10 text-head">
+        </div>
+        <div class="col-md-1">
+          <button class="btn btn-sm btn-update"(click)="addActivity()">Add Activity</button>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-12" style="padding:0px;margin-top: 10px;">
+      <div class="col-md-12 table-responsive" style=" padding-left: 0px;">
+        <div class="scrollbar" id="style-3">
+          <div class="force-overflow">
+      <table class="table activitytbl" >
+        <tbody >
+          <tr *ngFor ="let data of ActivityData">
+            <td>
+              <img src="assets/images/activity.png">
+            </td>
+            <td>
+              <span><b>{{data.date}}</b></span><br>
+              <span class="location">{{data.time}}</span>
+            </td>
+            <td>
+              <span style="color:#4A90E2">{{data.type}}</span><br>
+              <span class="location"><i>Added by {{data.username}}</i></span>
+            </td>
+            <td style="font-size: 14px;
+            width: 70%;
+            color: #C5C5C5;">
+            {{data.notes}}</td>
+          </tr>
+          
+        </tbody>
+      </table>
+      </div>
+      </div>
+</div>
+    </div>
+  </div> -->
+</div>
+<!-- billing -->
+<div *ngIf="tab == 'billing'" class="col-md-12 tab-body" style="padding: 0px; padding-bottom: 10px;   padding-top: 10px;">
+  <div class="col-md-8" style="padding:0px">
+    <div class="col-md-12" style="padding:0px;margin-top: 10px;">
+      <div class="col-md-8" style="padding:0px">
+        <div class="col-md-12">
+          <div class="col-md-4">
+            <h4 style="font-size: 15px;">Contact Information</h4>
+          </div>
+          <div class="col-md-8 text-head">
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="col-md-12">
+            <table class="table" style="    font-size: 12px;
+            border: 1px solid #ddd;">
+              <thead>
+                <tr>
+                  <th>S.No</th>
+                  <th>Name</th>
+                  <th>Phone Number</th>
+                  <th>Alternate Number</th>
+                  <th>Email</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of contactpersonsVal;let i = index">
+                  <td>{{i+1}}</td>
+                  <td>{{data.cpname}}</td>
+                  <td>
+                    <ng-container *ngIf="data.countryphcode != ''">
+                    +{{data.countryphcode}}</ng-container> {{data.cpphone}}</td>
+                  <td>
+                    <ng-container *ngIf="data.countryphcode != ''">
+                      +{{data.altercountryphcode}}</ng-container> {{data.cpalternumber}}</td>
+                  <td>{{data.cpemail}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  </div>
+        
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+  
+  </div>
+  <div class="col-md-4"></div>
+
+</div>
+<div class="modal fade" id="ActivityModal" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header" style="    padding: 9px 20px;background-color: #F9F9F9;">
+        <i class="fa fa-close close" data-dismiss="modal"></i>
+      
+        <h4 class="modal-title" style="color: #000;">Add Activity</h4>
+
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="ActivityForm">
+          <div class="col-md-12" style="margin: 15px 0;padding: 0px;">
+         <div class="col-md-3"><h4 style="    font-size: 13px;
+          margin: 0;">Activity Type:</h4></div>
+         <div class="col-md-9"><select class="form-control select" style="width: 50%;" formControlName="type">
+           <option value="null" selected disabled>-Select-</option>
+           <option value="Phone Conversation">Phone Conversation</option>
+           <option value="Meeting">Meeting</option>
+           <option value="Email Conversation">Email Conversation</option>
+         </select></div>
+          </div>
+          <div class="col-md-12" style="    margin-bottom: 25px;padding:0px">
+         <div class="col-md-3"><h4 style="    font-size: 13px;
+          margin: 0;">Notes:</h4></div>
+         <div class="col-md-9"><textarea class="form-control select"formControlName="notes"></textarea></div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer footer" style="    margin-top: 100px;">
+        <button type="button" class="btn btn-sm no"  data-dismiss="modal">Cancel</button>
+        <button id="approveDisabled" type="button" class="btn btn-sm yes" data-dismiss="modal"
+         (click)="submitActivity()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal right fade" id="LeadDealModal" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel2">Add Deal </h4>
+      </div>
+
+      <div class="modal-body">
+
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-12" style="margin-top: 15px;">
+              <h5 style="background: #EFEFEF;margin: 0px;color: #000;
+              padding: 10px 11px;">Basic Information</h5>
+              <div class="col-md-12" style=" border: 1px solid #EFEFEF;   padding: 10px 0 0 0;">
+              <div class="col-md-3">
+                  <p style="    font-size: 13px;
+                  color: #00000082;">Name</p>
+                  <p style="    font-size: 13px;
+                  color: #00000082;">Email</p>
+                  <p style="    font-size: 13px;
+                  color: #00000082;">Phone Number</p>
+              </div>
+              <div class="col-md-9">
+                  <p style="    font-size: 13px;
+                  color: #000;">{{DataRetails.firstname}}</p>
+                  <p style="    font-size: 13px;
+                  color: #000;">{{DataRetails.email}}</p>
+                  <p style="    font-size: 13px;
+                  color: #000;">{{DataRetails.phonenumber}}</p>
+              </div>
+              </div>
+
+          </div>
+
+
+          <div class="col-md-12" style="margin-top: 15px;">
+              <div class="col-md-12" style="padding: 0px;">
+                  <h5>Services</h5>
+                  <form [formGroup]="ServiceForm">
+                  <div class="col-md-2" style="padding: 0px;">
+                      <label>Service Type</label>
+                      <select class="form-control" formControlName="servicetype" style="    width: 96%; 
+                      font-size: 12px;" (change)="selectService($event.target.value)" >
+                      <option value="Certification" selected>Certification</option>
+                      <option value="Training">Training</option>
+                  </select>
+                  <small class="text-danger"
+                  *ngIf="!ServiceForm.controls.servicetype.valid && ServiceForm.controls.servicetype.touched">Service Type
+                  is required</small>
+                  </div>
+                  <div class="col-md-5" style="padding: 0px;">
+                      <label>Service Name</label>
+                      <ng-container *ngIf="certificate">
+                          <input type="text" class="form-control" list="certdata"
+                              (input)="certificateSearch($event.target.value)"
+                              placeholder="Search Certification" formControlName="name"
+                              style="    width: 98%;font-size: 12px;">
+
+                          <!-- <i class="fa fa-search searcicon"></i> -->
+                          <datalist id="certdata">
+                              <ng-container *ngFor="let list of CateList ">
+                                  <option value="{{list.name}}"></option>
+                              </ng-container>
+                          </datalist>
+                          
+                      </ng-container>
+                      <ng-container *ngIf="training">
+
+                          <input type="text" class="form-control" list="Traindata"
+                              (input)="TrainingSearch($event.target.value)"formControlName="name"
+                              placeholder="Search Training"
+                              style="    width: 98%;font-size: 12px;">
+
+                          <!-- <i class="fa fa-search searcicon"></i> -->
+                          <datalist id="Traindata">
+                              <ng-container *ngFor="let list of TrainList ">
+                                  <option value="{{list.name}}"></option>
+                              </ng-container>
+                          </datalist>
+                      </ng-container>
+                      <small class="text-danger"
+                      *ngIf="!ServiceForm.controls.name.valid && ServiceForm.controls.name.touched">
+                      Service Name
+                      is required</small>
+                  </div>
+                  <div class="col-md-2" style="padding: 0px;">
+                      <label>Price</label>
+                      <input class="form-control" type="text" formControlName="price"
+                      style="    width: 95%;font-size: 12px;">
+                      <small class="text-danger"
+                      *ngIf="!ServiceForm.controls.price.valid && ServiceForm.controls.price.touched">Price
+                      is required</small>
+                  </div>
+                  <div class="col-md-2" style="padding: 0px;">
+                      <label>Date</label>
+                      <input type="date" class="form-control" formControlName="date" id="DateSelect"
+                      style="    width: 95%;font-size: 12px;">
+                      <small class="text-danger"
+                      *ngIf="!ServiceForm.controls.date.valid && ServiceForm.controls.date.touched">Date
+                      is required</small>
+                  </div>
+                  <div class="col-md-1" style="padding: 0px;">
+                
+                      <button class="btn btn-add" style="    margin-top: 28px;" (click)="AddserviceDeal()">Add</button>
+                  </div>
+                  </form>
+           
+
+                  <table class="table table2">
+                      <tbody>
+                          <tr>
+                              <td>S.No</td>
+                              <td>Service Type</td>
+                              <td>Service Name</td>
+                              <td>Price</td>
+                              <td>Date</td>
+                              <td></td>
+                          </tr>
+                          <tr *ngFor="let data of ServicesData;let index=index">
+                              <td>{{index+1}}</td>
+                              <td>{{data.servicetype}}</td>
+                              <td>{{data.name}}</td>
+                              <td>{{data.price}}</td>
+                              <td>{{data.date}}</td>
+                              <td></td>
+                          </tr>
+                      </tbody>
+                  </table>
+                  <label>Notes</label>
+                  <textarea class="form-control" style="height: 13vh;" (input)="notesValue($event.target.value)"></textarea>
+              </div>
+
+
+          </div>
+
+
+          </div>
+
+
+        </div>
+      </div>
+
+
+
+
+
+
+      <div class="modal-footer basic-footer ">
+
+        <div class="col-md-12">
+          <div class="col-md-12">
+            <button type="button" class="btn btn-sm btn-danger" id="btn-cancel"
+              data-dismiss="modal">Cancel</button>&nbsp;&nbsp;
+            <button class="btn btn-save btn-sm" id="btn-update" (click)="submitDeal()">Submit</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div>
+<div class="modal right fade" id="BusinessLeadEditModal" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                      aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel2">Edit Business Lead </h4>
+          </div>
+       
+              <div class="modal-body">
+
+
+                  <div class="row">
+                      <form [formGroup]="businessleadcontactform">
+                        <div class="col-md-12 ">
+                          <div class="col-md-3">
+                              <h4 class="headstyle"> General Information</h4>
+                          </div>
+                          <div class="col-md-8 text-head">
+    
+                          </div>
+                      </div>
+                          <div class="col-md-12">
+                              <div class="col-md-4">
+                                  <div class="form-group">
+                                      <label>Company Name<span class="star text-danger">*</span></label>
+                                      <input type="text" class="form-control" formControlName="companyname">
+                                      <small class="text-danger"
+                                          *ngIf="!businessleadcontactform.controls.companyname.valid && businessleadcontactform.controls.companyname.touched">Company
+                                          Name
+                                          is required</small>
+                                  </div>
+                              </div>
+  
+                              <div class="col-md-4">
+                                  <label>Company Email <span class="star text-danger">*</span></label>
+                                  <input type="text" class="form-control" formControlName="companyemailid">
+                                  <small class="text-danger"
+                                      *ngIf="!businessleadcontactform.controls.companyemailid.valid && businessleadcontactform.controls.companyemailid.touched">Company
+                                      Email
+                                      is required</small>
+                              </div>
+                              <div class="col-md-4">
+                                  <label>GST</label>
+                                  <input type="text" class="form-control" formControlName="gst">
+                              </div>
+                          </div>
+  
+  
+                          <div class="col-md-12 ">
+  
+  
+                              <div class="col-md-6">
+                                  <label>Lead Source</label>
+                                  <select class="form-control" formControlName="leadtype"
+                                      (change)="ChangeLeadType($event.target.value)">
+                                      <option value=null selected disabled> Select
+                                          Lead
+                                          Source
+                                      </option>
+                                      <option value="Advertisement">Advertisement
+                                      </option>
+                                      <option value="Cold Call">Cold Call</option>
+                                      <option value="Employee Referral">Employee
+                                          Referral
+                                      </option>
+                                      <option value="External Referral">External
+                                          Referral
+                                      </option>
+                                      <option value="Social Media">Social Media
+                                      </option>
+                                      <option value="others">Others
+                                      </option>
+                                  </select>
+                              </div>
+                              <ng-container *ngIf="employeename">
+  
+                                  <div class="col-md-6">
+                                      <label>Employee Name</label>
+  
+                                      <select class="form-control" formControlName="leadname">
+                                          <option value=null selected disabled>Select
+                                              Name</option>
+                                          <ng-container *ngFor="let data of EmployeeData">
+                                              <option value="{{data.employeename}}">
+                                                  {{data.employeename}}</option>
+                                          </ng-container>
+                                      </select>
+                                  </div>
+                              </ng-container>
+                              <ng-container *ngIf="employeename1">
+  
+                                  <div class="col-md-6">
+                                      <label>Additional Lead Info</label>
+                                      <input class="form-control" formControlName="leadname">
+                                  </div>
+                              </ng-container>
+                          </div>
+                          <div class="col-md-12" style="margin-top: 15px;">
+                              <div class="col-md-4">
+                                  <div class="form-group">
+                                      <label>Door No</label>
+                                      <input type="text" class="form-control" formControlName="doorno">
+  
+                                  </div>
+                              </div>
+                              <div class="col-md-4">
+                                  <div class="form-group">
+                                      <label>Street</label>
+                                      <input type="text" class="form-control" formControlName="street">
+  
+                                  </div>
+                              </div>
+  
+                              <div class="col-md-4">
+                                  <label>Country</label>
+  
+                                  <input type="text" class="form-control" formControlName="country" list="data"
+                                      placeholder="">
+                                
+                                  <!-- <small class="text-danger"
+                                                      *ngIf="!BasicForm.controls.country.valid && BasicForm.controls.country.touched">country
+              
+                                                      is required</small> -->
+                              </div>
+                          </div>
+  
+                          <div class="col-md-12" style="margin-top: 15px;">
+                              <div class="col-md-4">
+                                  <div class="form-group">
+                                      <label>State</label>
+                                      <input type="text" class="form-control" formControlName="state" list="catedata"
+                                          id="searchglobalstate" placeholder="">
+  
+                                    
+                                      <!-- <small class="text-danger"
+                                                      *ngIf="!BasicForm.controls.state.valid && BasicForm.controls.state.touched">state
+          
+                                                      is required</small> -->
+                                  </div>
+                              </div>
+  
+                              <div class="col-md-4">
+                                  <div class="form-group">
+  
+                                      <label>City</label>
+                                      <input type="text" class="form-control" formControlName="city" list="citydata"
+                                          placeholder="">
+  
+                                 
+  
+                                  </div>
+                              </div>
+                              <div class="col-md-4">
+                                  <label>Pin Code</label>
+                                  <input type="text" class="form-control" (keypress)="keyAlpha($event)"formControlName="pincode"maxlength="6" />
+  
+                              </div>
+                          </div>
+                          <div class="col-md-12">
+                              <div class="col-md-12">
+                                  <h5 class="headstyle">Contact Information &nbsp;&nbsp;<span (click)="addRow()"><i
+                                              class="fas fa-plus-circle" style="color:#30ae07"></i> &nbsp;&nbsp;Add
+                                          Contact
+                                          Person</span></h5>
+                              </div>
+                          </div>
+  
+                          <ng-container formArrayName="contactpersons"
+                              *ngFor="let list of projectformdetailes.controls; let i=index">
+                              <ng-container [formGroupName]="i">
+                                  <div class="col-md-12">
+                                      <div class="col-md-12">
+                                          <h5>Contact Person {{i+1}}</h5>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-12">
+  
+                                      <div class="col-md-3">
+                                          <label>Name</label>
+                                          <input type="text" class="form-control" formControlName="cpname"   (keypress)="keyAlphavalue($event)">
+                                          <!-- <small class="text-danger"
+                                              *ngIf="!list.controls.CPName.valid && list.controls.CPName.touched">Company
+                                              Name
+                                              is required</small> -->
+                                      </div>
+                                      <div class="col-md-3">
+                                        <label>Phone Number </label>
+                                        <input type="text" class="form-control" formControlName="countryphcode" style="position: absolute;
+                                        bottom: 0; left: 15px;  font-size: 10px;   width: 30%; padding: 0;  padding-left: 2px;" list="phnalt2"
+                                         >
+                                        <input type="text" class="form-control" formControlName="cpphone" autocomplete="off"
+                                            maxlength="13" style=" font-size: 11px;   width: 66%; float: right;" (keypress)="keyAlpha($event)">
+                                        <datalist id="phnalt2">
+                                            <ng-container *ngFor="let list of countriesArray">
+                                                <option value="{{list.code}}">{{list.name}}</option>
+                                            </ng-container>
+                                        </datalist>
+                                     
+                                            <small class="text-danger"
+                                        *ngIf="!list.controls.cpphone.valid && list.controls.cpphone.touched">  Phone
+                                        Number
+                                        is required</small>
+                                        <!-- <small class="text-danger"
+                                                *ngIf="!list.controls.CPPhone.valid && list.controls.CPPhone.touched">Phone
+                                                Number
+                                                is required</small> -->
+                                        <!-- <span class="alt-num" style="margin-top: 10px;" (click)="altnumberbusi()"><img
+                                            src="assets/images/plus-circle.png"> &nbsp;&nbsp; Add Alternate Phone
+                                        Number</span> -->
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Alternate Phone Number</label>
+                                        <input type="text" class="form-control" formControlName="altercountryphcode" style="position: absolute;
+                                        bottom: 0; left: 15px;  font-size: 10px;   width: 30%; padding: 0;  padding-left: 2px;" list="phnalt2">
+                                        <input type="text" class="form-control" formControlName="cpalternumber"
+                                            autocomplete="off" maxlength="13" style="  font-size: 11px;   width: 66%;  float: right;"
+                                            (keypress)="keyAlpha($event)">
+        
+                                        <datalist id="phnalt2">
+                                            <ng-container *ngFor="let list of countriesArray">
+                                                <option value="{{list.code}}">{{list.name}}</option>
+                                            </ng-container>
+                                        </datalist>
+                                     
+                                            <small class="text-danger"
+                                            *ngIf="!list.controls.cpalternumber.valid && list.controls.cpalternumber.touched"> Alternate Phone
+                                            Number
+                                            is required </small>
+                                    </div>
+                                      <div class="col-md-3">
+                                          <div class="form-group">
+                                              <label>Email </label>
+                                              <input type="text" class="form-control" formControlName="cpemail">
+                                              <small class="text-danger"
+                                              *ngIf="!list.controls.cpemail.valid && list.controls.cpemail.touched">Email
+                                              is not valid</small>
+                                          </div>
+                                      </div>
+                                  </div>
+  
+  
+                                  <div class="col-md-12" *ngIf="projectformdetailes.length>1"style="text-align: right"> <button class="btn btn-sm btn-dangers"
+                                          (click)="deleteRow(i)">Delete</button></div>
+  
+                              </ng-container>
+                          </ng-container>
+                          <hr>
+  
+  
+                      </form>
+
+
+
+                  </div>
+              </div>
+
+
+
+
+
+
+              <div class="modal-footer basic-footer ">
+
+                  <div class="col-md-12">
+                      <div class="col-md-12">
+                          <button type="button" class="btn btn-sm btn-danger" id="btn-cancel"
+                              data-dismiss="modal">Cancel</button>&nbsp;&nbsp;
+                          <button class="btn btn-save btn-sm" type="submit" id="btn-update"
+                           (click)="submitBusiness()" >Submit</button>
+                      </div>
+                  </div>
+
+              </div>
+       
+      </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div>

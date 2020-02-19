@@ -1,0 +1,481 @@
+<!-- <div class="col-md-12">
+  <div class="col-md-12">
+    <h2>Insights</h2>
+  </div> -->
+<app-spinner *ngIf="loading"></app-spinner>
+<div class="col-md-12" style="padding: 0;">
+  <div class="col-md-4 " style="    padding-left: 0;">
+    <div class="col-md-12 cardbody">
+      <div class="col-md-4">
+        <h5 class="text-head">WON DEALS</h5>
+        <h2 class="body-no">{{CardDatas?.wondeals}}</h2>
+      </div>
+      <div class="col-md-4 " style="padding: 0px;">
+        <h5 class="text-head">WORTH</h5>
+        <h4 class="worth-no" *ngIf="CardDatas?.wondealsworth != null">₹ {{CardDatas?.wondealsworth | number : '1.2-2'}}</h4>
+      </div>
+      <div class="col-md-4" style="    text-align: center;">
+        <img src="assets/images/dash-img1.svg">
+      </div>
+      <div class="col-md-12" style=" padding: 14px 25px 0;font-size: 12px;
+        font-weight: bold;">
+        <ng-container *ngIf="CardDatas?.dealsdiff < 0">
+          <img src="assets/images/ic_arrow_drop_down.svg">&nbsp;&nbsp;&nbsp;&nbsp;<span
+            style="color:#BF0E08;">{{CardDatas?.dealsdiff}}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: 
+          #66788A;">Since last month</span>
+        </ng-container>
+        <ng-container *ngIf="CardDatas?.dealsdiff >= 0">
+          <img src="assets/images/ic_arrow_green.svg">&nbsp;&nbsp;&nbsp;&nbsp;<span
+            style="color:#74A53F;">{{CardDatas?.dealsdiff}}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: 
+              #66788A;">Since last month</span>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 ">
+    <div class="col-md-12 cardbody">
+      <div class="col-md-4" >
+        <h5 class="text-head">NEW CONTACTS</h5>
+        <h2 class="body-no">{{CardDatas?.newcontacts}}</h2>
+      </div>
+      <div class="col-md-4 " style="padding: 0px;">
+        <h5 class="text-head">TOTAL CONTACTS</h5>
+        <h4 class="worth-no">{{CardDatas?.totalcontacts}}</h4>
+      </div>
+      <div class="col-md-4" style="    text-align: center;">
+        <img src="assets/images/dash-cont.svg">
+      </div>
+      <div class="col-md-12" style=" padding: 14px 25px 0;font-size: 12px;
+        font-weight: bold;">
+        <ng-container *ngIf="CardDatas?.contactdiff < 0">
+          <img src="assets/images/ic_arrow_drop_down.svg">&nbsp;&nbsp;&nbsp;&nbsp;<span
+            style="color:#BF0E08;">{{CardDatas?.contactdiff}}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: 
+          #66788A;">Since last month</span>
+        </ng-container>
+        <ng-container *ngIf="CardDatas?.contactdiff >= 0">
+          <img src="assets/images/ic_arrow_green.svg">&nbsp;&nbsp;&nbsp;&nbsp;<span
+            style="color:#74A53F;">{{CardDatas?.contactdiff}}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: 
+              #66788A;">Since last month</span>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 ">
+    <div class="col-md-12 cardbody">
+      <div class="col-md-4" >
+        <h5 class="text-head">NEW LEAD</h5>
+        <h2 class="body-no">{{CardDatas?.newleads}}</h2>
+      </div>
+      <div class="col-md-4 " style="padding: 0px;">
+        <h5 class="text-head">CONVERTED</h5>
+        <h4 class="worth-no">{{CardDatas?.converted}}</h4>
+      </div>
+      <div class="col-md-4" style="    text-align: center;">
+        <img src="assets/images/dash-img3.svg">
+      </div>
+      <div class="col-md-12" style=" padding: 14px 25px 0;font-size: 12px;
+        font-weight: bold;">
+        <ng-container *ngIf="CardDatas?.leaddiff < 0">
+          <img src="assets/images/ic_arrow_drop_down.svg">&nbsp;&nbsp;&nbsp;&nbsp;<span
+            style="color:#BF0E08;">{{CardDatas?.leaddiff}}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: 
+          #66788A;">Since last month</span>
+        </ng-container>
+        <ng-container *ngIf="CardDatas?.leaddiff >= 0">
+          <img src="assets/images/ic_arrow_green.svg">&nbsp;&nbsp;&nbsp;&nbsp;<span
+            style="color:#74A53F;">{{CardDatas?.leaddiff}}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: 
+              #66788A;">Since last month</span>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-md-12" style="padding: 0;    margin-top: 25px;">
+  <div class="col-md-6 "  style="    padding-left: 0;">
+    <div class="col-md-12 cardbody" style="    height: 400px;">
+      <div class="col-md-12">
+        <div class="col-md-6">
+          <h4 class="header">SALES <span style="font-size: 11px;"> (Won Deals worth and count)</span></h4>
+        </div>
+        <div class="col-md-6">
+          <!-- <ul class="ullist">
+            <li style="border-right: 1px solid #979797;" class="tab tab_selectedssales"
+              (click)="markTabSales('WeeklySales',$event)">Weekly</li>
+            <li style="border-right: 1px solid #979797;" class="tab" (click)="markTabSales('MonthlySales',$event)">
+              Monthly</li>
+            <li style="border-right: 1px solid #979797;" class="tab" (click)="markTabSales('quaterlySales',$event)">
+              Quaterly</li>
+            <li class="tab" (click)="markTabSales('yearlySales',$event)">Yearly</li>
+          </ul> -->
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div [chart]="DoubleAxisChart" class="chartbody" id="DoubleChart"></div>
+        <!-- <div *ngIf="tabSales == 'WeeklySales'">
+          <div [chart]="DoubleAxisChart" class="chartbody" id="DoubleChart"></div>
+        </div>
+        <div *ngIf="tabSales == 'MonthlySales'">
+          <div [chart]="DoubleAxisChart" class="chartbody" id="DoubleChart"></div>
+        </div>
+        <div *ngIf="tabSales == 'quaterlySales'">
+          <div [chart]="DoubleAxisChart" class="chartbody" id="DoubleChart"></div>
+        </div>
+        <div *ngIf="tabSales == 'yearlySales'">
+          <div [chart]="DoubleAxisChart" class="chartbody" id="DoubleChart"></div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 ">
+    <div class="col-md-12 cardbody" style="    height: 400px;">
+      <div class="col-md-12">
+        <div class="col-md-12">
+          <h4 class="header">ACTIVITIES</h4>
+        </div>
+        <div class="col-md-12">
+          <ng-container *ngFor="let data of Activities">
+            <div class="col-md-1" style="    padding-top: 10px;">
+              <img src="assets/images/profile.svg" class="img-circle" style="width:35px;height:35px">
+            </div>
+
+            <div class="col-md-11" style="    border-bottom: 1px solid #eeeeee;padding:0px">
+              <div class="col-md-1" style="    padding-top: 10px;">
+                <ng-container *ngIf="data.status == 'won'">
+                  <img src="assets/images/cup.svg">
+                </ng-container>
+                <ng-container *ngIf="data.status != 'won'">
+                  <img src="assets/images/loss.svg">
+                </ng-container>
+              </div>
+              <div class="col-md-11">
+                <ng-container *ngIf="data.status == 'won'">
+                  <h4 class="header">{{data.username}} <span style="font-size: 12px;font-weight: 100;"> has won the deal
+                    with</span> {{data.custname}} <span style="font-size: 12px;font-weight: 100;"> on</span>
+                  {{data.servicename}}
+                </h4>
+                <h4 class="header">Services - {{data.servicetype}}.</h4>
+                </ng-container>
+                <ng-container *ngIf="data.status != 'won'">
+                  <h4 class="header">{{data.username}} <span style="font-size: 12px;font-weight: 100;"> has lost the deal
+                    with</span> {{data.custname}} <span style="font-size: 12px;font-weight: 100;"> on</span>
+                  {{data.servicename}}
+                </h4>
+                <h4 class="header">Services - {{data.servicetype}}.</h4>
+                </ng-container>
+              
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="col-md-12" style="padding: 0;    margin-top: 25px;">
+  <div class="col-md-6 "  style="    padding-left: 0;">
+    <div class="col-md-12 cardbody" style="    height: 400px;">
+      <div class="col-md-12">
+        <div class="col-md-6">
+          <h4 class="header">TOP PERFORMERS</h4>
+        </div>
+        <div class="col-md-6">
+          <!-- <ul class="ullist">
+            <li style="border-right: 1px solid #979797;" class="tab tab_selectedsuser"
+              (click)="markTabUser('monthlyUser',$event)">Monthly</li>
+            <li style="border-right: 1px solid #979797;" class="tab" (click)="markTabUser('quaterlyUser',$event)">
+              Quaterly</li>
+            <li (click)="markTabUser('YearlyUser',$event)" class="tab">Yearly</li>
+          </ul> -->
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-11">
+          <div [chart]="BarCharts" class="chartbody" id="BarCharts"></div>
+        </div>
+        <div class="col-md-1" style="display: grid;">
+          <img src="assets/images/Gold.svg" style="    margin: 20px 0;">
+          <img src="assets/images/silver.svg">
+          <img src="assets/images/metol.svg"  style="    margin: 20px 0;">
+        </div>
+        <!-- <div *ngIf="tabUser == 'monthlyUser' ">
+          <div [chart]="BarCharts" class="chartbody" id="BarCharts"></div>
+        </div>
+        <div *ngIf="tabUser == 'quaterlyUser' ">
+          <div [chart]="BarCharts" class="chartbody" id="BarCharts"></div>
+        </div>
+        <div *ngIf="tabUser == 'YearlyUser' ">
+          <div [chart]="BarCharts" class="chartbody" id="BarCharts"></div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 ">
+    <div class="col-md-12 cardbody" style="    height: 400px;">
+      <div class="col-md-12">
+        <div class="col-md-12">
+          <div class="col-md-6">
+            <h4 class="header">LEAD SOURCE</h4>
+          </div>
+          <div class="col-md-6">
+
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="col-md-8">
+            <div [chart]="PieChart" class="chartbody" id="PieChart"></div>
+          </div>
+          <div class="col-md-4 legend" style="padding: 25px 0;">
+            <ng-container *ngFor="let data of pieChartArr">
+              <h6><span class="fb" [ngStyle]="{'background-color':data.color}"></span>&nbsp;&nbsp;{{data.name}}</h6>
+
+            </ng-container>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="col-md-12" style="padding: 0;    margin-top: 25px;">
+  <div class="col-md-6 " style="    padding-left: 0;">
+    <div class="col-md-12 cardbody" style="    height: 400px;">
+      <div class="col-md-12" style="    padding: 0;">
+        <div class="col-md-12">
+          <div class="col-md-6">
+            <h4 class="header">TOP PERFORMING CERTIFICATIONS</h4>
+          </div>
+          <div class="col-md-6">
+            <ul class="ullist">
+
+              <li style="border-right: 1px solid #979797;" class="tab tab_selecteds"
+                (click)="tabCertfi('monthlyCerti',$event)">Monthly</li>
+              <li style="border-right: 1px solid #979797;" class="tab " (click)="tabCertfi('quaterlyCerti',$event)">
+                Quaterly</li>
+              <li (click)="tabCertfi('yearlyCerti',$event)" class="tab ">Yearly</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="col-md-2">
+            <h4 class="header"><span style="font-size: 11px;"> RANK</span></h4>
+          </div>
+          <div class="col-md-8">
+            <h4 class="header"><span style="font-size: 11px;"> NAME</span></h4>
+          </div>
+          <div class="col-md-2">
+            <h4 class="header"><span style="font-size: 11px;"> SALES</span></h4>
+          </div>
+
+        </div>
+        <div class="col-md-12" *ngIf="tabCerti == 'monthlyCerti'">
+
+          <ng-container *ngFor="let data of TopCertData">
+            <div class="col-md-12" style="     padding: 5px 0;  border-bottom: 1px solid #eeeeee;">
+              <div class="col-md-2">
+                <h3 class="headers"> {{data.position}}</h3>&nbsp;
+                <ng-container *ngIf="data?.prevposition < 0">
+                  <img src="assets/images/ic_arrow_drop_down.svg">&nbsp;<span
+                    style="color:#909090;font-size: 10px;">{{data?.prevposition}}</span>
+                </ng-container>
+                <ng-container *ngIf="data?.prevposition >= 0">
+                  <img src="assets/images/ic_arrow_green.svg">&nbsp;<span
+                    style="color:#909090;font-size: 10px;">{{data?.prevposition}}</span>
+                </ng-container>
+              </div>
+              <div class="col-md-8">
+                <h3 class="headers">{{data.name}}</h3>
+              </div>
+              <div class="col-md-2">
+                <h3 class="headers"> {{data.value}}</h3>
+              </div>
+            </div>
+          </ng-container>
+
+        </div>
+        <div class="col-md-12" *ngIf="tabCerti == 'quaterlyCerti'">
+          <ng-container *ngFor="let data of TopCertData">
+            <div class="col-md-12" style="      padding: 5px 0;  border-bottom: 1px solid #eeeeee;">
+              <div class="col-md-2">
+                <h3 class="headers"> {{data.position}}</h3>&nbsp;
+                <ng-container *ngIf="data?.prevposition < 0">
+                  <img src="assets/images/ic_arrow_drop_down.svg">&nbsp;<span
+                    style="color:#909090;font-size: 10px;">{{data?.prevposition}}</span>
+                </ng-container>
+                <ng-container *ngIf="data?.prevposition >= 0">
+                  <img src="assets/images/ic_arrow_green.svg">&nbsp;<span
+                    style="color:#909090;font-size: 10px;">{{data?.prevposition}}</span>
+                </ng-container>
+              </div>
+              <div class="col-md-8">
+                <h3 class="headers">{{data.name}}</h3>
+              </div>
+              <div class="col-md-2">
+                <h3 class="headers"> {{data.value}}</h3>
+              </div>
+            </div>
+          </ng-container>
+
+        </div>
+        <div class="col-md-12" *ngIf="tabCerti == 'yearlyCerti'">
+          <ng-container *ngFor="let data of TopCertData">
+            <div class="col-md-12" style="     padding: 5px 0;  border-bottom: 1px solid #eeeeee;">
+              <div class="col-md-2">
+                <h3 class="headers"> {{data.position}}</h3>&nbsp;
+                <ng-container *ngIf="data?.prevposition < 0">
+                  <img src="assets/images/ic_arrow_drop_down.svg">&nbsp;<span
+                    style="color:#909090;font-size: 10px;">{{data?.prevposition}}</span>
+                </ng-container>
+                <ng-container *ngIf="data?.prevposition >= 0">
+                  <img src="assets/images/ic_arrow_green.svg">&nbsp;<span
+                    style="color:#909090;font-size: 10px;">{{data?.prevposition}}</span>
+                </ng-container>
+              </div>
+              <div class="col-md-8">
+                <h3 class="headers">{{data.name}}</h3>
+              </div>
+              <div class="col-md-2">
+                <h3 class="headers"> {{data.value}}</h3>
+              </div>
+            </div>
+          </ng-container>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 ">
+    <div class="col-md-12 cardbody" style="    height: 400px;">
+      <div class="col-md-12" style="    padding: 0;">
+        <div class="col-md-12">
+          <div class="col-md-6">
+            <h4 class="header">TOP PERFORMING TRAININGS</h4>
+          </div>
+          <div class="col-md-6">
+            <ul class="ullist">
+
+              <li style="border-right: 1px solid #979797;" class="tab tab_selected"
+                (click)="markTab('monthlyTrain',$event)">Monthly</li>
+              <li style="border-right: 1px solid #979797;" class="tab" (click)="markTab('quaterlyTrain',$event)">
+                Quaterly</li>
+              <li (click)="markTab('YearlyTrain',$event)" class="tab">Yearly</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-12" *ngIf="tab == 'monthlyTrain'">
+          <div class="col-md-12" style="padding: 0;">
+            <div class="col-md-2">
+              <h4 class="header"><span style="font-size: 11px;"> RANK</span></h4>
+            </div>
+            <div class="col-md-8">
+              <h4 class="header"><span style="font-size: 11px;"> NAME</span></h4>
+            </div>
+            <div class="col-md-2">
+              <h4 class="header"><span style="font-size: 11px;"> SALES</span></h4>
+            </div>
+
+          </div>
+          <ng-container *ngFor="let data of TopTrainData">
+            <div class="col-md-12" style="    padding: 5px 0;   border-bottom: 1px solid #eeeeee;">
+              <div class="col-md-2">
+                <h3 class="headers"> {{data.position}}</h3>&nbsp;
+                <ng-container *ngIf="data?.prevposition < 0">
+                  <img src="assets/images/ic_arrow_drop_down.svg">&nbsp;<span
+                    style="color:#909090;font-size: 10px;">{{data?.prevposition}}</span>
+                </ng-container>
+                <ng-container *ngIf="data?.prevposition >= 0">
+                  <img src="assets/images/ic_arrow_green.svg">&nbsp;<span
+                    style="color:#909090;font-size: 10px;">{{data?.prevposition}}</span>
+                </ng-container>
+              </div>
+              <div class="col-md-8">
+                <h3 class="headers">{{data.name}}</h3>
+              </div>
+              <div class="col-md-2">
+                <h3 class="headers"> {{data.value}}</h3>
+              </div>
+
+            </div>
+          </ng-container>
+        </div>
+        <div class="col-md-12" *ngIf="tab == 'quaterlyTrain'">
+          <div class="col-md-12" style=" padding: 0;">
+            <div class="col-md-2">
+              <h4 class="header"><span style="font-size: 11px;"> RANK</span></h4>
+            </div>
+            <div class="col-md-8">
+              <h4 class="header"><span style="font-size: 11px;"> NAME</span></h4>
+            </div>
+            <div class="col-md-2">
+              <h4 class="header"><span style="font-size: 11px;"> SALES</span></h4>
+            </div>
+
+          </div>
+          <ng-container *ngFor="let data of TopTrainData">
+            <div class="col-md-12" style="    padding: 5px 0;  border-bottom: 1px solid #eeeeee;">
+              <div class="col-md-2">
+                <h3 class="headers"> {{data.position}}</h3>&nbsp;
+                <ng-container *ngIf="data?.prevposition < 0">
+                  <img src="assets/images/ic_arrow_drop_down.svg">&nbsp;<span
+                    style="color:#909090;font-size: 10px;">{{data?.prevposition}}</span>
+                </ng-container>
+                <ng-container *ngIf="data?.prevposition >= 0">
+                  <img src="assets/images/ic_arrow_green.svg">&nbsp;<span
+                    style="color:#909090;font-size: 10px;">{{data?.prevposition}}</span>
+                </ng-container>
+              </div>
+              <div class="col-md-8">
+                <h3 class="headers">{{data.name}}</h3>
+              </div>
+              <div class="col-md-2">
+                <h3 class="headers"> {{data.value}}</h3>
+              </div>
+
+            </div>
+          </ng-container>
+        </div>
+        <div class="col-md-12" *ngIf="tab == 'YearlyTrain'">
+          <div class="col-md-12" style=" padding: 0;">
+            <div class="col-md-2">
+              <h4 class="header"><span style="font-size: 11px;"> RANK</span></h4>
+            </div>
+            <div class="col-md-8">
+              <h4 class="header"><span style="font-size: 11px;"> NAME</span></h4>
+            </div>
+            <div class="col-md-2">
+              <h4 class="header"><span style="font-size: 11px;"> SALES</span></h4>
+            </div>
+
+          </div>
+          <ng-container *ngFor="let data of TopTrainData">
+            <div class="col-md-12" style="    padding: 5px 0;   border-bottom: 1px solid #eeeeee;">
+              <div class="col-md-2">
+                <h3 class="headers"> {{data.position}}</h3>&nbsp;
+                <ng-container *ngIf="data?.prevposition < 0">
+                  <img src="assets/images/ic_arrow_drop_down.svg">&nbsp;<span
+                    style="color:#909090;font-size: 10px;">{{data?.prevposition}}</span>
+                </ng-container>
+                <ng-container *ngIf="data?.prevposition >= 0">
+                  <img src="assets/images/ic_arrow_green.svg">&nbsp;<span
+                    style="color:#909090;font-size: 10px;">{{data?.prevposition}}</span>
+                </ng-container>
+              </div>
+              <div class="col-md-8">
+                <h3 class="headers">{{data.name}}</h3>
+              </div>
+              <div class="col-md-2">
+                <h3 class="headers"> {{data.value}}</h3>
+              </div>
+
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+<!-- </div> -->

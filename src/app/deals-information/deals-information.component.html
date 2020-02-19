@@ -1,0 +1,516 @@
+<div class="col-md-12" style="    margin: 10px 0 4px 0;padding:0px">
+  <h4>Deals </h4>
+  <img src="assets/images/back.png" data-toggle="tooltip" style="   cursor: pointer;" title="Back"
+    routerLink="/dashboard/Deals" class="btn-back">
+
+</div>
+<div class="col-md-12" style="padding: 0px;    background: #F9F9F9;">
+  <div class="tabbar">
+    <div id="plannedTab" (click)="markTab('basic',$event)" class="tab tab_selected">General </div>
+  </div>
+</div>
+
+<!-- basic -->
+<div *ngIf="tab == 'basic'" class="col-md-12 tab-body" style="padding: 0px; padding-bottom: 10px;   padding-top: 10px;">
+  <div>
+    <div>
+      <div class="col-md-5" style="padding:0px">
+        <div class="col-md-12" style="padding:0px;margin-top: 10px;">
+          <div class="col-md-12">
+            <div class="col-md-4">
+              <h4 style="font-size: 15px;    color: #000;">Personal Details</h4>
+            </div>
+            <div class="col-md-8 text-head">
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-4">
+              <h5>Name</h5>
+            </div>
+            <div class="col-md-8 " [innerHTML]="formatData(ViewListDate.custname)">
+
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-4">
+              <h5>Email</h5>
+            </div>
+            <div class="col-md-8" [innerHTML]="formatData(ViewListDate.custemail)">
+
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-4">
+              <h5>Phone Number</h5>
+            </div>
+            <div class="col-md-8 " [innerHTML]="formatData(ViewListDate.custphone)">
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-4">
+              <h5>Alt. Phone Number</h5>
+            </div>
+            <div class="col-md-8 " [innerHTML]="formatData(RetailLead.alterphonenum)">
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-4">
+              <h5>D.O.B</h5>
+            </div>
+            <div class="col-md-8 " [innerHTML]="formatData(RetailLead.dob)">
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-4">
+              <h5>Place of Birth</h5>
+            </div>
+            <div class="col-md-8 " [innerHTML]="formatData(RetailLead.placeofbirth)">
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-4">
+              <h4 style="font-size: 15px;    color: #000;">Lead Information</h4>
+            </div>
+            <div class="col-md-8 text-head">
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-4">
+              <h5>Lead Source</h5>
+            </div>
+            <div class="col-md-8 " [innerHTML]="formatData(RetailLead.leadtype)">
+
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="col-md-4">
+              <h5>Additional Lead Info</h5>
+            </div>
+            <div class="col-md-8" [innerHTML]="formatData(RetailLead.additionalinfo)">
+
+            </div>
+          </div>
+          <div class="col-md-12">
+            <ng-container *ngIf="RetailLead.userrole == 'fresher'">
+              <div class="col-md-4">
+                <h5>Institute Name</h5>
+              </div>
+              <div class="col-md-8" [innerHTML]="formatData(RetailLead.orgname)">
+
+              </div>
+            </ng-container>
+            <ng-container *ngIf="RetailLead.userrole != 'fresher'">
+              <div class="col-md-4">
+                <h5>Company Name</h5>
+              </div>
+              <div class="col-md-8" [innerHTML]="formatData(RetailLead.orgname)">
+
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div class="col-md-12" style="margin-top: 10px;">
+      <div class="col-md-3">
+        <h5>Deal Status</h5>
+      </div>
+      <div class="col-md-5">
+        <select class="form-control select">
+          <option value="null" selected disabled>-Select Deal Status-</option>
+          <option value="New">New</option>
+          <option value="Not Interested">Not Interested</option>
+          <option value="Under review">Under review</option>
+          <option value="Converted">Converted</option>
+          <option value="Not"> Not</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-sm btn-update">Update</button>
+      </div>
+    </div> -->
+      </div>
+      <div class="col-md-7">
+        <div class="col-md-12" style="margin-top: 10px;">
+          <div class="col-md-3">
+            <h4 style="font-size: 15px;    color: #000;">Deal Information</h4>
+          </div>
+          <div class="col-md-9 text-head">
+          </div>
+
+        </div>
+        <div class="col-md-12 ">
+          <div class="col-md-12 ">
+            <!-- <h5 style="margin-bottom: 8px;font-weight: 600;">Due Date Information&nbsp;&nbsp;&nbsp;<img
+            src="assets/images/edit.svg" data-toggle="tooltip" title="Edit"
+            (click)="EditDuedate(dueDataDate,DueJusti)"
+            style="    width: 12px;cursor: pointer;"></h5> -->
+            <div class="col-md-3" style="padding: 0px;">
+              <h6><b style=" font-size:12px;color: #00000082;">Due Date</b> &nbsp;&nbsp; {{dueDataDate}}
+                &nbsp;&nbsp;&nbsp;<img src="assets/images/edit-tbl.svg" data-toggle="tooltip" title="Edit"
+                  (click)="EditDuedate(dueDataDate,DueJusti)" style="    width: 12px;cursor: pointer;"></h6>
+            </div>
+            <div class="col-md-2" style="padding: 0px;" *ngIf="DueJusti?.length > 0">
+              <h6><b style=" font-size:12px;color: #00000082;">Justification</b></h6>
+            </div>
+            <div class="col-md-7" style="padding: 0px;">
+
+              <h6 class="dueJustifi" style="font-size: 12px;">{{DueJusti}} </h6>
+              <ng-container *ngIf="DueJusti?.length > 45">
+                &nbsp;&nbsp;
+                <div class="btn-mores moredetails" id="parent" style="  padding: 2px 6px;color:
+            #4A90E2;    position: absolute;
+    top: 0;
+    right: 45px;">More
+                  <div id="hover-content">{{DueJusti}}</div>
+                </div>
+
+              </ng-container> &nbsp;&nbsp;
+              <img src="assets/images/history.svg" style=" cursor: pointer;" class="history-img"
+                (click)="HistoryModal()">
+            </div>
+            <!-- <div class="col-md-1">
+        
+         
+        </div>
+        <div class="col-md-1"  style="padding: 0px;">
+        
+        </div> -->
+
+          </div>
+        </div>
+        <div class="col-md-12 ">
+          <div class="col-md-12 table-responsive">
+            <!-- <h5 style="margin: 0px;font-weight: 600;">Services Information</h5> -->
+            <table class="table servicetbl">
+
+              <tr style="background: #EFEFEF;">
+                <td style="width:8%;text-align: center;">S.No</td>
+                <td>Service Type</td>
+                <td>Service Name</td>
+                <td>Price</td>
+                <!-- <td>Date</td> -->
+                <td style="text-align: center;">Status</td>
+              </tr>
+
+              <tr class="tbldatarow"
+                *ngFor="let data of ServiceList| paginate: { itemsPerPage: 4, currentPage: p2,id: 'ser'};let index=index">
+                <td style="text-align: center;">{{(p2- 1) * 4 + index+1 }}</td>
+                <td>{{data?.servicetype}}</td>
+                <td>{{data?.name}}</td>
+                <td>{{data?.price}}</td>
+                <!-- <td>{{data?.date }}</td> -->
+                <td style="    width: 15%;
+            text-align: center;">
+                  <ng-container *ngIf="data?.status == 'pending'">
+                    <img src="assets/images/thumbs-down.svg" data-placement="top" data-toggle="tooltip" title="Lost"
+                      style="transform: scaleX(-1);" class="lost-img" (click)="Lost(data._id)">&nbsp;&nbsp;&nbsp;
+                    <img src="assets/images/like.svg" class="lost-img" data-placement="top" data-toggle="tooltip"
+                      title="Won" (click)="Won(data._id)">
+                  </ng-container>
+                  <ng-container *ngIf="data?.status == 'won'">
+                    <img src="assets/images/like.svg" class="lost-img" data-placement="top" data-toggle="tooltip"
+                      title="Won">
+                  </ng-container>
+                  <ng-container *ngIf="data?.status == 'lost'">
+                    <img src="assets/images/thumbs-down.svg" data-placement="top" data-toggle="tooltip" title="Lost"
+                      style="transform: scaleX(-1);" class="lost-img">
+                  </ng-container>
+                </td>
+              </tr>
+
+            </table>
+
+            <ng-container *ngIf="ServiceList?.length > 4">
+              <pagination-controls (pageChange)="p2 = $event" #api id="ser" style="    font-size: 10px;
+        float: right;">
+              </pagination-controls>
+            </ng-container>
+            <h5 style="margin-top: 15px;font-weight: 600;">Notes</h5>
+            <h5 style="margin-top: 15px;">{{ViewListDate.notes}}</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="col-md-12" style="padding:0px;margin-top: 10px;">
+          <div class="col-md-12" style="padding:0px">
+            <div class="col-md-1">
+              <h4 style="font-size: 15px;    color: #000;">Activities</h4>
+            </div>
+            <div class="col-md-10 text-head">
+            </div>
+            <div class="col-md-1">
+              <button class="btn btn-sm btn-update" (click)="addActivity()">Add Activity</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-md-12" style="padding:0px;margin-top: 10px;">
+          <div class="col-md-12 table-responsive" style=" padding-left: 0px;">
+            <div class="scrollbar" id="style-3">
+              <div class="force-overflow">
+                <table class="table activitytbl">
+                  <tbody>
+                    <tr *ngFor="let data of ActivityData">
+                      <td>
+                        <img src="assets/images/activity.png">
+                      </td>
+                      <td>
+                        <span><b>{{data.date}}</b></span><br>
+                        <span class="location">{{data.time}}</span>
+                      </td>
+                      <td>
+                        <span style="color:#4A90E2">{{data.type}}</span><br>
+                        <span class="location"><i>Added by {{data.username}}</i></span>
+                      </td>
+                      <td style="font-size: 14px;
+            width: 65%;
+            color: #C5C5C5;">
+                        <p class="notess"> {{data.notes}}</p>
+
+                      </td>
+
+                      <td style="width:5%">
+                        <ng-container *ngIf="data.notes?.length > 255">
+                          <div class="btn-mores moredetails" style="  padding: 2px 6px; cursor: pointer;color:
+                    #4A90E2;   " (click)="moreNotes(data.notes,data.username,data.time,data.date,data.type)">More
+
+                          </div>
+                        </ng-container>
+                      </td>
+
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="ActivityModal" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header" style="    padding: 9px 20px;background-color: #F9F9F9;">
+        <i class="fa fa-close close" data-dismiss="modal"></i>
+
+        <h4 class="modal-title" style="color: #000;">Add Activity</h4>
+
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="ActivityForm">
+          <div class="col-md-12" style="margin: 15px 0;padding: 0px;">
+            <div class="col-md-3">
+              <h4 style="    font-size: 13px;
+          margin: 0;">Activity Type:<span class="star text-danger">*</span></h4>
+            </div>
+            <div class="col-md-9"><select class="form-control select" style="width: 50%;" formControlName="type">
+                <option value="null" selected disabled>-Select-</option>
+                <option value="Phone Conversation">Phone Conversation</option>
+                <option value="Meeting">Meeting</option>
+                <option value="Email Conversation">Email Conversation</option>
+              </select></div>
+          </div>
+          <div class="col-md-12" style="    margin-bottom: 25px;padding:0px">
+            <div class="col-md-3">
+              <h4 style="    font-size: 13px;
+          margin: 0;">Notes:<span class="star text-danger">*</span></h4>
+            </div>
+            <div class="col-md-9"><textarea class="form-control select" formControlName="notes"></textarea></div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer footer" style="    margin-top: 100px;">
+        <button type="button" class="btn btn-sm no" data-dismiss="modal">Cancel</button>
+        <button id="approveDisabled" type="button" class="btn btn-sm yes" (click)="submitActivity()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="WonModal" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-md" style="width: 35%;">
+    <div class="modal-content">
+      <div class="modal-body" style="padding: 25px 25px 10px 25px;">
+        <h4 style="font-size: 25px;">Yay! That’s awesome</h4>
+        <p style="    font-size: 14px;">Are you sure, you want to close this deal and move
+          this lead to contact ?</p>
+      </div>
+      <div class="modal-footer footer">
+        <button type="button" class="btn btn-sm btn-edit" data-dismiss="modal">No</button>
+        <button id="approveDisabled" type="button" class="btn btn-sm btn-update" (click)="wonSubmit()">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="LostModal" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-md" style="width: 35%;">
+    <div class="modal-content">
+      <div class="modal-body" style="padding: 25px 25px 10px 25px;">
+        <h4 style="font-size: 25px;">It’s okay better luck next time!</h4>
+        <p style="    font-size: 14px;">Are you sure, you want to close this deal ?</p>
+      </div>
+      <div class="modal-footer footer">
+        <button type="button" class="btn btn-sm btn-edit" data-dismiss="modal">No</button>
+        <button id="approveDisabled" type="button" class="btn btn-sm btn-update" (click)="LostSubmit()">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="DuedateModal" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header" style="    padding: 9px 20px;background-color: #F9F9F9;">
+        <i class="fa fa-close close" data-dismiss="modal"></i>
+
+        <h4 class="modal-title" style="color: #000;">Update Due Date</h4>
+
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="DueDateForm">
+          <div class="col-md-12" style="margin: 15px 0;padding: 0px;">
+            <div class="col-md-3">
+              <h4 style="    font-size: 13px;
+          margin: 0;">Due Date <span class="star text-danger">*</span></h4>
+            </div>
+            <div class="col-md-9">
+              <input type="text" placement="bottom" class="form-control" bsDatepicker formControlName="duedate"
+                [bsConfig]="{ adaptivePosition: true,dateInputFormat: 'DD-MM-YYYY', showWeekNumbers:false }"
+                id="duedates" autocomplete="off" placeholder="DD-MM-YYYY" style="    width: 95%;font-size: 12px;"></div>
+          </div>
+          <div class="col-md-12" style="    margin-bottom: 25px;padding:0px">
+            <div class="col-md-3">
+              <h4 style="    font-size: 13px;
+          margin: 0;">Justification <span class="star text-danger">*</span></h4>
+            </div>
+            <div class="col-md-9"><textarea class="form-control select" formControlName="justification"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer footer" style="    margin-top: 100px;">
+        <button type="button" class="btn btn-sm no" data-dismiss="modal">Cancel</button>
+        <button id="approveDisabled" type="button" class="btn btn-sm yes" (click)="submitDuedate()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="OpenHistory" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content" style="overflow-y: scroll;
+    height: 60vh;">
+      <div class="modal-header" style="    padding: 9px 20px;background-color: #F9F9F9;">
+        <i class="fa fa-close close" data-dismiss="modal"></i>
+
+        <h4 class="modal-title" style="color: #000;">View Details</h4>
+
+      </div>
+      <div class="modal-body" style="font-size: 12px;">
+        <div class="col-md-12">
+          <table class="table historytbl">
+            <tbody>
+              <h4 style="font-size:14px">On Going Due Date</h4>
+              <tr>
+                <td> <label>Due Date</label></td>
+              </tr>
+              <tr>
+                <td>
+                  <p>{{dueDataDate}}</p>
+                </td>
+              </tr>
+              <ng-container *ngIf="DueJusti != undefined ">
+                <tr>
+                  <td> <label>Justification</label></td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>{{DueJusti}}</p>
+                  </td>
+                </tr>
+              </ng-container>
+              <ng-container *ngIf="DueDateList?.length>1">
+                <h4 style="font-size:14px">History of Due Date</h4>
+                <ng-container
+                  *ngFor="let data of DueDateList| paginate: { itemsPerPage: 10, currentPage: p3,id: 'three'};let index=index">
+                  <tr>
+                    <td> <label>Due Date</label></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>{{data.duedate}}</p>
+                    </td>
+                  </tr>
+                  <ng-container *ngIf="data.justification != undefined">
+                    <tr>
+                      <td> <label>Justification</label></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>{{data.justification}}</p>
+                      </td>
+                    </tr>
+                  </ng-container>
+
+
+
+
+                </ng-container>
+              </ng-container>
+            </tbody>
+          </table>
+          <br>
+          <ng-container *ngIf="DueDateList?.length>1">
+            <pagination-controls (pageChange)="p3 = $event" #api id="three" style="    font-size: 13px;
+          float: right;">
+            </pagination-controls>
+          </ng-container>
+        </div>
+      </div>
+      <div class="modal-footer footer">
+        <button type="button" class="btn btn-sm btn-edit" data-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="MoreNotes" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body" style="padding: 25px 25px 10px 25px;">
+        <!-- <h4  style="font-size: 25px;">It’s okay better luck next time!</h4> -->
+        <table class="table activitytbl">
+          <tbody>
+            <tr>
+              <td>
+                <img src="assets/images/activity.png">
+              </td>
+              <td>
+                <span><b>{{date}}</b></span><br>
+                <span class="location">{{Time}}</span>
+              </td>
+              <td>
+                <span style="color:#4A90E2">{{type}}</span><br>
+                <span class="location"><i>Added by {{Username}}</i></span>
+              </td>
+              <td style="font-size: 14px;
+    width: 65%;
+    color: #C5C5C5;">
+                <p class=""> {{MoreNotes}}</p>
+
+              </td>
+
+
+
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer footer">
+        <button type="button" class="btn btn-sm btn-edit" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,107 @@
+.cardbody{
+    background-color: white;
+    box-shadow: 0 1px 3px 0 #3f3f4426;
+    border-radius: 4px;
+    padding: 25px 0;
+    height: 150px;
+}
+.text-head{
+    color: #66788A;
+    font-weight: bold;
+    font-size: 12px;
+    font-family: roboto;
+    font-weight: bold;
+}
+.body-no{
+    margin: 0;
+    font-weight: bold;
+    color: #212529;
+}
+.worth-no{
+    margin-bottom: 0px;
+    color: #212529;
+    font-size: 20px;
+    margin-top: 16px !important;
+}
+.ullist{
+    display: inline-flex;
+    float: right;
+}
+.ullist li{
+    list-style: none;
+    padding: 0px 14px;
+    font-size: 14px;
+    color: #4A90E2;
+    cursor: pointer;
+}
+.header{
+    font-size: 12px;
+    color: #66788A;
+    font-weight: bold;
+    letter-spacing: 0.8px;
+}
+h3.headers {
+    font-size: 15px;
+    margin: 0;
+    padding: 11px 0;
+    color: #000;
+    display: inline-block;
+}
+span.fb {
+    height: 11px;
+    width: 11px;
+    /* background-color: #3b70fe; */
+    border-radius: 50%;
+    display: inline-block;
+}
+span.ins {
+    height: 11px;
+    width: 11px;
+    background-color: #FE467C;
+    border-radius: 50%;
+    display: inline-block;
+}
+span.event {
+    height: 11px;
+    width: 11px;
+    background-color: #00DA99;
+    border-radius: 50%;
+    display: inline-block;
+}
+span.walk {
+    height: 11px;
+    width: 11px;
+    background-color: 
+    #059EFE;
+    border-radius: 50%;
+    display: inline-block;
+}
+span.reff {
+    height: 11px;
+    width: 11px;
+    background-color: #FEB200;
+    border-radius: 50%;
+    display: inline-block;
+}
+.legend h6{
+    font-size: 15px;
+    color: #000;
+    padding-bottom: 10px;
+    letter-spacing: 0.7px;
+}
+.tab_selected{
+    color: #A7A7A7 !important;
+    cursor: pointer;
+}
+.tab_selecteds{
+    color: #A7A7A7 !important;
+    cursor: pointer;
+}
+.tab_selectedsuser{
+    color: #A7A7A7 !important;
+    cursor: pointer;
+}
+.tab_selectedssales{
+    color: #A7A7A7 !important;
+    cursor: pointer;
+}

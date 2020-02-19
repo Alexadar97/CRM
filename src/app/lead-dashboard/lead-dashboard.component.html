@@ -1,0 +1,14 @@
+<div class="col-md-12" style="padding: 0;">
+  <div class="col-md-12" style="padding: 0;">
+    <h2 style="    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;">Insights</h2>
+  </div>
+  <div class="col-md-12" style="padding: 0;" *ngIf="UserRole == 'admin'">
+    
+ <app-admin-dashboard></app-admin-dashboard>
+  </div>
+  <div class="col-md-12" style="padding: 0;" *ngIf="UserRole == 'user' ">
+<app-user-dashboard></app-user-dashboard>
+</div>
+</div>

@@ -1,0 +1,364 @@
+<div class="col-md-12" style="    margin: 10px 0 4px 0;padding:0px">
+  <h4 style="font-family: lato;font-weight: 700;">Master</h4>
+</div>
+
+<div class="row">
+  <div class="col-md-3">
+    <a href="#" class="nav-tabs-dropdown btn btn-block btn-primary"></a>
+    <ul id="nav-tabs-wrapper" class="nav nav-tabs nav-pills nav-stacked well">
+      <li style="border-bottom:1px solid #EAEAEA" class="active" (click)="showCliadd()"><a href="#vtab1"
+          data-toggle="tab">Clients
+          <ng-container *ngIf="showClientAdd">
+            <span><button class="btn btn-sm btn-new right" (click)="ClientModal()"><i
+                  class=" fa fa-plus"></i></button></span>
+          </ng-container>
+        </a>
+
+      </li>
+      <li style="border-bottom:1px solid #EAEAEA ;" (click)="showServiadd()"><a href="#vtab2" data-toggle="tab">Service
+          Provider
+          <ng-container *ngIf="ServiceAdd">
+            <span><button class="btn btn-sm btn-new right" (click)="serviceModal()"><i
+                  class="fa fa-plus"></i></button></span>
+          </ng-container>
+        </a></li>
+      <li style="border-bottom:1px solid #EAEAEA" (click)="showCateadd()"><a href="#vtab3" data-toggle="tab">Category
+          <ng-container *ngIf="ShowCateAdd">
+            <span> <button class="btn btn-sm btn-new right" (click)="CategoryModal()"><i
+                  class="fa fa-plus"></i></button></span>
+          </ng-container>
+        </a></li>
+      <li><a href="#vtab4" data-toggle="tab" (click)="showLeveladd()">Level
+          <ng-container *ngIf="ShowLevelAdd">
+            <span><button class="btn btn-sm btn-new right" (click)="levelModal()"><i
+                  class="fa fa-plus"></i></button></span>
+          </ng-container>
+        </a></li>
+    </ul>
+  </div>
+  <div class="col-md-9">
+    <div class="col-md-12" style="    background-color: #fff;    padding: 15px 0;height: 70vh;">
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active" id="vtab1">
+          <div class="col-md-12">
+
+
+            <div class="table-responsive">
+              <table class="table tableDate" *ngIf="ClientList?.length > 0 ">
+                <thead>
+                  <tr>
+                    <th style="width: 7%;text-align: center;">S.No</th>
+                    <th>Name</th>
+                    <th style="width: 7%;">Edit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="let data of ClientList| paginate: { itemsPerPage: 10, currentPagecli: p2,id: 'er'};let index=index">
+                    <td style="text-align: center;">{{(currentPagecli- 1) * 10 + index+1 }}</td>
+                    <td>{{data.name}}</td>
+                    <td><i class="fa fa-edit" style="cursor: pointer;" (click)="ClientUpdate(data._id,data.name)"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <h4 *ngIf="ClientList?.length ==0 " class="text-center" style="padding: 180px 0;">Clients not created yet &nbsp;&nbsp;
+               </h4>
+              <!-- <pagination-controls *ngIf="ClientList?.length >8 " (pageChange)="p2 = $event" #api id="er" style="    font-size: 13px;
+              float: right;">
+              </pagination-controls> -->
+              <div style="float: right;margin-bottom: 35px;" *ngIf="ClientList?.length >0 ">
+                <button [disabled]="currentPagecli == 1" class="btn btn-default paginationbtn"
+              (click)="paginatePartList3('prev')"><i class="fa fa-angle-left"></i></button>
+              <span style="font-size: 15px;
+                padding: 10px;">
+              <input id="currentPageInputcli" class="paginatecontrol" type="text" value="{{currentPagecli}}"
+                style="width: 50px;">
+              <i class="fa fa-search searchbtn" style="border: 1px solid #979797;
+              padding: 5px 4px;
+              position: relative;
+              top: 1px;
+              background-color: #b7b7b7;" (click)="searchPage3()"></i>
+              of
+              {{totalPagescli}}
+              </span>
+              
+              <button [disabled]="currentPagecli == totalPagescli" class="btn btn-default paginationbtn"
+              (click)="paginatePartList3('next')"><i class="fa fa-angle-right"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="vtab2">
+          <div class="col-md-12">
+
+
+            <div class="table-responsive">
+              <table class="table tableDate" *ngIf="ServiceList?.length > 0">
+                <thead>
+                  <tr>
+                    <th style="width: 7%;text-align: center;">S.No</th>
+                    <th>Name</th>
+                    <th style="width: 7%;">Edit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="let data of ServiceList| paginate: { itemsPerPage: 10, currentPageser: p2,id: 'two'};let index=index">
+                    <td style="text-align: center;">{{(currentPageser- 1) * 10 + index+1 }}</td>
+                    <td>{{data.name}}</td>
+                    <td><i class="fa fa-edit" style="cursor: pointer;" (click)="ClientService(data._id,data.name)"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <h4 *ngIf="ServiceList?.length ==0 " class="text-center" style="padding: 180px 0;">Service Provider not created yet &nbsp;&nbsp;
+              </h4>
+              <!-- <pagination-controls *ngIf="ServiceList?.length > 8" (pageChange)="p2 = $event" #api id="two" style="    font-size: 13px;
+float: right;">
+              </pagination-controls> -->
+              <div style="float: right;margin-bottom: 35px;" *ngIf="ServiceList?.length > 0 ">
+                <button [disabled]="currentPageser == 1" class="btn btn-default paginationbtn"
+              (click)="paginatePartList('prev')"><i class="fa fa-angle-left"></i></button>
+              <span style="font-size: 15px;
+                padding: 10px;">
+              <input id="currentPageInputser" class="paginatecontrol" type="text" value="{{currentPageser}}"
+                style="width: 50px;">
+              <i class="fa fa-search searchbtn" style="border: 1px solid #979797;
+              padding: 5px 4px;
+              position: relative;
+              top: 1px;
+              background-color: #b7b7b7;" (click)="searchPage()"></i>
+              of
+              {{totalPagesser}}
+              </span>
+              
+              <button [disabled]="currentPageser == totalPagesser" class="btn btn-default paginationbtn"
+              (click)="paginatePartList('next')"><i class="fa fa-angle-right"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div role="tabpanel" class="tab-pane fade in" id="vtab3">
+          <div class="col-md-12">
+            <div class="table-responsive">
+              <table class="table tableDate" *ngIf="CategoryList?.length >0 ">
+                <thead>
+                  <tr>
+                    <th style="width: 7%;text-align: center;">S.No</th>
+                    <th>Name</th>
+                    <th style="width: 7%;">Edit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="let data of CategoryList| paginate: { itemsPerPage: 10, currentPage: p2,id: 'ed'};let index=index">
+                    <td style="text-align: center;">{{(currentPage- 1) * 10 + index+1 }}</td>
+                    <td>{{data.name}}</td>
+                    <td><i class="fa fa-edit" style="cursor: pointer;" (click)="CategoryUpdate(data._id,data.name)"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <h4 *ngIf="CategoryList?.length ==0 " class="text-center" style="padding: 180px 0;">Category not created yet &nbsp;&nbsp;
+                </h4>
+              <!-- <pagination-controls *ngIf="CategoryList?.length >8 " (pageChange)="p2 = $event" #api id="ed" style="    font-size: 13px;
+              float: right;">
+              </pagination-controls> -->
+              <div style="float: right;margin-bottom: 35px;" *ngIf="CategoryList?.length >0 ">
+                <button [disabled]="currentPage == 1" class="btn btn-default paginationbtn"
+              (click)="paginatePartList1('prev')"><i class="fa fa-angle-left"></i></button>
+              <span style="font-size: 15px;
+                padding: 10px;">
+              <input id="currentPageInputcat" class="paginatecontrol" type="text" value="{{currentPage}}"
+                style="width: 50px;">
+              <i class="fa fa-search searchbtn" style="border: 1px solid #979797;
+              padding: 5px 4px;
+              position: relative;
+              top: 1px;
+              background-color: #b7b7b7;" (click)="searchPage1()"></i>
+              of
+              {{totalPages}}
+              </span>
+              
+              <button [disabled]="currentPage == totalPages" class="btn btn-default paginationbtn"
+              (click)="paginatePartList1('next')"><i class="fa fa-angle-right"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div role="tabpanel" class="tab-pane fade in" id="vtab4">
+          <div class="col-md-12">
+
+            <div class="table-responsive">
+              <table class="table tableDate" *ngIf="LevelList?.length >0 ">
+                <thead>
+                  <tr>
+                    <th style="width: 7%;text-align: center;">S.No</th>
+                    <th>Name</th>
+                    <th style="width: 7%;">Edit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="let data of LevelList| paginate: { itemsPerPage: 10, currentPagelevel: p2,id: 'es'};let index=index">
+                    <td style="text-align: center;">{{(currentPagelevel- 1) * 10 + index+1 }}</td>
+                    <td>{{data.name}}</td>
+                    <td><i class="fa fa-edit" style="cursor: pointer;" (click)="LevelUpdate(data._id,data.name)"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <h4 *ngIf="LevelList?.length ==0 " class="text-center" style="padding: 180px 0;">Level not created yet &nbsp;&nbsp;
+             </h4>
+              <!-- <pagination-controls *ngIf="LevelList?.length >8 " (pageChange)="p2 = $event" #api id="es" style="    font-size: 13px;
+              float: right;">
+              </pagination-controls> -->
+              <div style="float: right;margin-bottom: 35px;" *ngIf="LevelList?.length >0 ">
+                <button [disabled]="currentPagelevel == 1" class="btn btn-default paginationbtn"
+              (click)="paginatePartList2('prev')"><i class="fa fa-angle-left"></i></button>
+              <span style="font-size: 15px;
+                padding: 10px;">
+              <input id="currentPageInputtra" class="paginatecontrol" type="text" value="{{currentPagelevel}}"
+                style="width: 50px;">
+              <i class="fa fa-search searchbtn" style="border: 1px solid #979797;
+              padding: 5px 4px;
+              position: relative;
+              top: 1px;
+              background-color: #b7b7b7;" (click)="searchPage2()"></i>
+              of
+              {{totalPageslevel}}
+              </span>
+              
+              <button [disabled]="currentPagelevel == totalPageslevel" class="btn btn-default paginationbtn"
+              (click)="paginatePartList2('next')"><i class="fa fa-angle-right"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="ClientModals" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header" style="    padding: 9px 20px;background-color: #F9F9F9;">
+        <i class="fa fa-close close" data-dismiss="modal"></i>
+
+        <h4 class="modal-title" style="color: #000;"> {{name}}</h4>
+
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="ClientForm">
+          <div class="form-group">
+            <label style="    font-weight: 100;
+            font-size: 15px;">
+              Name
+            </label>
+            <input class="form-control" formControlName="name" (keypress)="keyAlphavalue($event)">
+            <small class="text-danger" *ngIf="!ClientForm.controls.name.valid && ClientForm.controls.name.touched">
+              Name is required</small>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer footer">
+        <button type="button" class="btn btn-sm no" data-dismiss="modal">Cancel</button>
+        <button id="approveDisabled" type="button" class="btn btn-sm yes"
+          (click)="submitClient()">{{btnnamecli}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="ServiceProvider" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header" style="    padding: 9px 20px;background-color: #F9F9F9;">
+        <i class="fa fa-close close" data-dismiss="modal"></i>
+
+        <h4 class="modal-title" style="color: #000;">{{name}}</h4>
+
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="ServiceForm">
+          <div class="form-group">
+            <label style="    font-weight: 100;
+            font-size: 15px;">
+              Name 
+            </label>
+            <input class="form-control" formControlName="name" (keypress)="keyAlphavalue($event)">
+            <small class="text-danger" *ngIf="!ServiceForm.controls.name.valid && ServiceForm.controls.name.touched">
+              Name is required</small>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer footer">
+        <button type="button" class="btn btn-sm no" data-dismiss="modal">Cancel</button>
+        <button id="approveDisabled" type="button" class="btn btn-sm yes"
+          (click)="submitService()">{{btnnameser}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="Category" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header" style="    padding: 9px 20px;background-color: #F9F9F9;">
+        <i class="fa fa-close close" data-dismiss="modal"></i>
+
+        <h4 class="modal-title" style="color: #000;">{{name}}</h4>
+
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="CategoryForm">
+          <div class="form-group">
+            <label style="    font-weight: 100;
+            font-size: 15px;">
+              Name 
+            </label>
+            <input class="form-control" formControlName="name" (keypress)="keyAlphavalue($event)">
+            <small class="text-danger" *ngIf="!CategoryForm.controls.name.valid && CategoryForm.controls.name.touched">
+              Name is required</small>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer footer">
+        <button type="button" class="btn btn-sm no" data-dismiss="modal">Cancel</button>
+        <button id="approveDisabled" type="button" class="btn btn-sm yes"
+          (click)="submitCategory()">{{btnname}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="level" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header" style="    padding: 9px 20px;background-color: #F9F9F9;">
+        <i class="fa fa-close close" data-dismiss="modal"></i>
+
+        <h4 class="modal-title" style="color: #000;">{{name}}</h4>
+
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="LevelForm">
+          <div class="form-group">
+            <label style="    font-weight: 100;
+            font-size: 15px;">
+              Name
+            </label>
+            <input class="form-control" formControlName="name" (keypress)="keyAlphavalue($event)">
+            <small class="text-danger" *ngIf="!LevelForm.controls.name.valid && LevelForm.controls.name.touched">
+              Name is required</small>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer footer">
+        <button type="button" class="btn btn-sm no" data-dismiss="modal">Cancel</button>
+        <button id="approveDisabled" type="button" class="btn btn-sm yes"
+          (click)="submitLevel()">{{btnnamelev}}</button>
+      </div>
+    </div>
+  </div>
+</div>

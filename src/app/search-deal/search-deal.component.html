@@ -1,0 +1,73 @@
+<div class="col-md-12">
+ 
+  <div class=" tablesearch">
+    <div class="col-md-12">
+<input type="text" class="form-control search" (input)="SearchdataDeal($event.target.value,$event)" >
+<i class="fa fa-search searcicon" ></i>
+<div id="Dealtypesdrop" class="typesdrop" style="display: none;">
+  <div class="col-md-12" style="padding:0px;    padding: 0px 12px;">
+  
+  <table class="table" style="margin:0px">
+    <ng-container *ngFor="let data of RetailSearch">
+      <tr (click)="searchRetails($event,data._id,data.type)" style="cursor: pointer;">
+        <td>{{data.firstname}}</td>
+        <td>{{data.phonenumber}}</td>
+        <td>{{data.email}}</td>
+      </tr>
+    </ng-container>
+  </table>
+
+  <table class="table" style="margin:0px">
+    <ng-container *ngFor="let data of SearchListBusi">
+      <tr (click)="searchBusiness($event,data._id,data.type)"  style="cursor: pointer;">
+        <td>{{data.companyname}}</td>
+        <td>{{data.companyemailid}}</td>
+      </tr>
+    </ng-container>
+  </table>
+  </div>
+  <div class="col-md-12" *ngIf="newUser">
+    <h5>New User</h5>
+  </div>
+</div>
+</div>
+
+<!-- <div class="col-md-12">
+<table class="table searchtbl" style="background-color: #f9f9f9;margin-bottom: 0px;">
+  <tr>
+    <td>Praveen Kumar</td>
+    <td>9677077764</td>
+    <td>axmail@gmail.com</td>
+    <td><button class="btn btn-sm btn-search">Contact</button></td>
+  </tr>
+  <tr>
+    <td>Yogananth</td>
+    <td>9677077764</td>
+    <td>yoganmail@gmail.com</td>
+    <td><button  class="btn btn-sm btn-search" style="    padding: 2px 17px;
+      ">Lead</button></td>
+  </tr>
+</table>
+</div> -->
+
+</div>
+
+<div class="col-md-12" style="margin-top: 15px;">
+  <table class="table datatable" >
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Phone No</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Praveen Kumar</td>
+        <td>9677077764</td>
+        <td>	axmail@gmail.com</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>

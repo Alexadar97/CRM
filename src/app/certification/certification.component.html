@@ -1,0 +1,282 @@
+<app-spinner *ngIf="loading"></app-spinner>
+<div class="col-md-12" style="    margin: 10px 0 4px 0;padding:0px" >
+  <div class="col-md-3" style="padding: 0px;">
+    <h4 style="font-family: lato;font-weight: 700;">Certification &nbsp;&nbsp;<button class="btn btn-sm btn-new" data-toggle="modal"
+        data-target="#CertificateModal"><i class=" fa fa-plus"></i></button></h4>
+  </div>
+  <div class="col-md-5"></div>
+  <div class="col-md-4" style="padding: 0px;">
+    <input type="text" class="search-bar form-control" list="clidata"
+      (input)="SearchdataList($event.target.value);hidedropdown()" list="searcdata" placeholder="" autocomplete="off">
+    <i class="fa fa-search searcicon"></i>
+    <!-- <button  class="btn btn-md btn-bulk" data-toggle="modal" data-target="#CertificateModal" >Add Certification </button> -->
+  </div>
+</div>
+<div class="col-md-12 table-responsive" style="padding: 0;    padding-top: 10px;">
+  <table class="table" id="contacttable" *ngIf="CateList?.length > 0">
+    <thead>
+      <tr>
+        <th style="width: 5%;text-align: center;">S.No</th>
+        <th>
+          Name
+        </th>
+        <th>Code</th>
+        <th>Price</th>
+        <th>Client </th>
+        <th>Service Provider</th>
+        <th style="    width: 4%;"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container
+        *ngFor="let data of CateList| paginate: { itemsPerPage: 10, currentPage: p2,id: 'two'};let index=index">
+        <tr>
+          <td style="cursor: pointer;text-align: center;" (click)="ViewDetails(data)">{{(currentPage- 1) * 10 + index+1 }}
+          </td>
+          <td style="cursor: pointer;" (click)="ViewDetails(data)">{{data.name}} &nbsp;
+            <ng-container *ngIf="data.preferredamt != ''">
+              <img data-toggle="tooltip" title="₹ {{data.preferredamt}}" src="assets/images/info.png"
+                style="height: 11px;">
+            </ng-container>
+          </td>
+          <td style="cursor: pointer;" (click)="ViewDetails(data)">{{data.code}}</td>
+          <td style="cursor: pointer;" (click)="ViewDetails(data)">
+            <ng-container *ngIf="data.pricetype == 'INR'">
+              ₹
+            </ng-container>
+            <ng-container *ngIf="data.pricetype == 'DOLLER'">
+              $
+            </ng-container>
+            <ng-container *ngIf="data.pricetype == 'EURO'">
+              €
+            </ng-container>
+            &nbsp; {{data.price}}
+          </td>
+          <td style="cursor: pointer;" (click)="ViewDetails(data)">
+            {{data.clientname}}
+          </td>
+          <td style="cursor: pointer;" (click)="ViewDetails(data)">{{data.providername}}</td>
+          <td style=" cursor: pointer;   width: 4%;"><img src="assets/images/edit-tbl.svg" class="edit-tabl"
+              (click)="Edit(data)"></td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+  <h4 *ngIf="CateList?.length== 0"  style="text-align:center;padding:150px 0px" class="text-center">Certification not created yet </h4>
+  <!-- <pagination-controls *ngIf="CateList?.length > 8" (pageChange)="p2 = $event" #api id="two" style="    font-size: 13px;
+  float: right;">
+  </pagination-controls> -->
+  <div style="float: right;margin-bottom: 35px;" *ngIf="CateList?.length > 0">
+    <button [disabled]="currentPage == 1" class="btn btn-default paginationbtn"
+(click)="paginatePartList('prev')"><i class="fa fa-angle-left"></i></button>
+<span style="font-size: 15px;
+    padding: 10px;">
+<input id="currentPageInput" class="paginatecontrol" type="text" value="{{currentPage}}"
+    style="width: 50px;">
+<i class="fa fa-search searchbtn" style="border: 1px solid #979797;
+padding: 5px 4px;
+position: relative;
+top: 1px;
+background-color: #b7b7b7;" (click)="searchPage()"></i>
+of
+{{totalPages}}
+</span>
+
+<button [disabled]="currentPage == totalPages" class="btn btn-default paginationbtn"
+(click)="paginatePartList('next')"><i class="fa fa-angle-right"></i></button>
+</div>
+</div>
+
+<div class="modal right fade" id="CertificateEditModal" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cancelModal()"><span
+            aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel2">Edit Certification </h4>
+      </div>
+
+      <div class="modal-body">
+
+
+        <div class="row">
+
+          <form [formGroup]="CertificateForm">
+            <div class="col-md-12" style="margin-top: 15px;">
+              <div class="col-md-6" style="position:relative;">
+                  <label>Service Provider <span class="star text-danger">*</span></label>
+                  <input type="text" class="form-control" formControlName="providername"(input)="getServiceProviderList($event.target.value);hidedropdown()"
+                     id="servidcdd" placeholder="Search Service Provider" autocomplete="off">
+                      <select style="position: absolute;z-index: 2000;display: none;    height: 80px;
+                      left: 15px;
+                      right: 13px;
+                      width: 297px;" id="selectioncdd"  class="dataser"class="form-control" size="5" (change)="Changeselect($event.target.value)">
+                       <!-- <option value="null" selected>Select Option</option> -->
+                          <ng-container *ngFor="let list of ServiceList ">
+                            <option value="{{list.name}}">{{list.name}}</option>
+                        </ng-container>
+                     
+                      </select>
+                   
+                  <small class="text-danger"
+                      *ngIf="!CertificateForm.controls.providername.valid && CertificateForm.controls.providername.touched">Service
+                      Provider is required</small>
+              </div>
+              <div class="col-md-6">
+                  <label> Client <span class="star text-danger">*</span></label>
+                  <input type="text" class="form-control" formControlName="clientname"(input)="getClientList($event.target.value);hidedropdown()"
+                  id="servidcdd2" placeholder="Search Client" autocomplete="off">
+                   <select style="position: absolute;z-index: 2000;display: none;    height: 80px;
+                   left: 15px;
+                   right: 13px;
+                   width: 297px;" id="selectioncdd2"  class="dataser"class="form-control" size="5" (change)="Changeselect2($event.target.value)">
+                    <!-- <option value="null" selected>Select Option</option> -->
+                       <ng-container *ngFor="let list of ClientList ">
+                         <option value="{{list.name}}">{{list.name}}</option>
+                     </ng-container>
+                  
+                   </select>
+                  <!-- <input type="text" class="form-control" formControlName="clientname" list="clidata1s"(input)="getClientList($event.target.value);hidedropdown()"
+                      placeholder="Search Client" autocomplete="off">
+                      <datalist id="clidata1s">
+                        <ng-container *ngFor="let list of ClientList ">
+                            <option value="{{list.name}}"></option>
+                        </ng-container>
+                    </datalist> -->
+                  <small class="text-danger"
+                      *ngIf="!CertificateForm.controls.clientname.valid && CertificateForm.controls.clientname.touched">
+                      Client is required</small>
+              </div>
+        </div>
+  <div class="col-md-12" >
+
+      <div class="col-md-6">
+          <label> Category <span class="star text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="categoryname"(input)="getTrCateList($event.target.value);hidedropdown()"
+          id="servidcdd4" placeholder="Search Category" autocomplete="off">
+           <select style="position: absolute;z-index: 2000;display: none;    height: 80px;
+           left: 15px;
+           right: 13px;
+           width: 297px;" id="selectioncdd4"  class="dataser"class="form-control" size="5" (change)="Changeselect4($event.target.value)">
+            <!-- <option value="null" selected>Select Option</option> -->
+               <ng-container *ngFor="let list of CategoryList ">
+                 <option value="{{list.name}}">{{list.name}}</option>
+             </ng-container>
+          
+           </select>
+          <!-- <input type="text" class="form-control" formControlName="categoryname" list="catdata1s"(input)="getTrCateList($event.target.value);hidedropdown()"
+             placeholder="Search Category" autocomplete="off">
+              <datalist id="catdata1s">
+                  <ng-container *ngFor="let list of CategoryList ">
+                      <option value={{list.name}}></option>
+                  </ng-container>
+              </datalist> -->
+          <small class="text-danger"
+              *ngIf="!CertificateForm.controls.categoryname.valid && CertificateForm.controls.categoryname.touched">Category is required</small>
+      </div>
+      <div class="col-md-6">
+          <label> Level  <span class="star text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="levelname"(input)="getLevelList($event.target.value);hidedropdown()"
+          id="servidcdd3" placeholder="Search Level" autocomplete="off">
+           <select style="position: absolute;z-index: 2000;display: none;    height: 80px;
+           left: 15px;
+           right: 13px;
+           width: 297px;" id="selectioncdd3"  class="dataser"class="form-control" size="5" (change)="Changeselect3($event.target.value)">
+            <!-- <option value="null" selected>Select Option</option> -->
+               <ng-container *ngFor="let list of LevelList ">
+                 <option value="{{list.name}}">{{list.name}}</option>
+             </ng-container>
+          
+           </select>
+          <!-- <input type="text" class="form-control" formControlName="levelname"(input)="getLevelList($event.target.value);hidedropdown()"
+              list="leveldata1s"  placeholder="Search Level" autocomplete="off">
+              <datalist id="leveldata1s">
+                  <ng-container *ngFor="let list of LevelList ">
+                      <option value={{list.name}}></option>
+                  </ng-container>
+              </datalist> -->
+          <small class="text-danger"
+              *ngIf="!CertificateForm.controls.levelname.valid && CertificateForm.controls.levelname.touched">Level is required</small>
+      </div>
+  </div>
+       
+            <div class="col-md-12" style="margin-top: 15px;    height: 70px;">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label> Name <span class="star text-danger">*</span></label>
+                  <input type="text" class="form-control" formControlName="name" (keypress)="keyAlphavalue($event)">
+                  <small class="text-danger"
+                    *ngIf="!CertificateForm.controls.name.valid && CertificateForm.controls.name.touched">
+                    Name is required</small>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label> Code <span class="star text-danger">*</span></label>
+                <input type="email" class="form-control" formControlName="code">
+                <small class="text-danger"
+                  *ngIf="!CertificateForm.controls.code.valid && CertificateForm.controls.code.touched">
+                  Code is required</small>
+              </div>
+            </div>
+
+            <div class="col-md-12" style="margin-top: 15px;    height: 70px;">
+              <div class="col-md-6">
+                <label>Price <span class="star text-danger">*</span></label>
+                <input type="text" class="form-control" formControlName="price" (keypress)="keyAlpha($event)">
+                <select class="select-price" formControlName="pricetype" id="pricesymbol">
+                  <option value="INR" selected>₹</option>
+                  <option value="DOLLER">$</option>
+                  <option value="EURO">€</option>
+                </select>
+                <small class="text-danger"
+                  *ngIf="!CertificateForm.controls.price.valid && CertificateForm.controls.price.touched">Price
+                  is required</small>
+
+              </div>
+              <div class="col-md-6">
+                <span style="font-size: 15px">Preferred Amount <span class="star text-danger">*</span></span>
+                <label class="checkbox-label">&nbsp;&nbsp;
+                  <!-- <input type="checkbox" (click)="preferred($event)" style="cursor:pointer" id="checked"> -->
+                  <span class="checkbox-custom rectangular"></span>
+
+
+                </label>
+                <ng-container *ngIf="preferredamount == false ">
+                  <input type="text" class="form-control" (keypress)="keyAlpha($event)" formControlName="preferredamt"
+                    disabled>
+                </ng-container>
+                <ng-container *ngIf="preferredamount == true ">
+                  <input type="text" class="form-control" (keypress)="keyAlpha($event)" formControlName="preferredamt">
+                </ng-container>
+              </div>
+            </div>
+
+
+
+          </form>
+
+
+        </div>
+      </div>
+
+
+
+
+
+
+      <div class="modal-footer basic-footer ">
+
+        <div class="col-md-12">
+          <div class="col-md-12">
+            <button type="button" class="btn btn-sm btn-danger" id="btn-cancel" data-dismiss="modal"
+              (click)="cancelModal()">Cancel</button>&nbsp;&nbsp;
+            <button class="btn btn-save btn-sm" id="btn-update" (click)="SubmitCertification()">Submit</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div>

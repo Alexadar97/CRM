@@ -1,0 +1,450 @@
+<app-spinner *ngIf="loading"></app-spinner>
+<div class="col-md-12" style="padding: 0px;" (click)="offAction()">
+    <div class="col-md-12" *ngIf="lead_list?.length > 0" style="    margin: 10px 0 4px 0;padding:0px">
+        <div class="col-md-3" style="padding: 0px;">
+            <h4 style="font-family: lato;font-weight: 700;">Retail Contacts</h4>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-5" style="padding: 0px;">
+            <input type="text" class="search-bar col-md-7" list="clidata"
+                (input)="SearchdataList($event.target.value);hidedropdown()" list="searcdata" placeholder=""
+                autocomplete="off">
+            <i class="fa fa-search searcicon"></i>
+            <span style="float:right">
+                <button (click)="showTypes($event)" class="btn btn-sm btn-upload">
+                    Bulk Actions &nbsp;&nbsp;<i class="	fa fa-angle-down "></i></button>
+
+
+                <div id="importActions" class="importAction" style="display: none;">
+                    <p style="font-size: 12px;cursor: pointer;" (click)="downloadexcel()">Download Contact</p>
+                </div>
+            </span> </div>
+
+        <!-- <button  class="btn btn-md btn-bulk" data-toggle="modal" data-target="#RetailModal">Add Contact </button> -->
+    </div>
+    <div class="col-md-12 table-responsive" style="padding: 0;    padding-top: 10px;">
+        <table class="table" id="contacttable" *ngIf="lead_list?.length > 0">
+            <thead>
+                <tr>
+                    <th style="width: 5%;text-align: center;"> <label class="container-checkbox">
+                            <input type="checkbox" class="checkAll" (click)="checkAll($event)">
+                            <span class="checkmark"></span>
+                        </label></th>
+                    <th style="    width: 33%;">
+                        Name
+                    </th>
+                    <th>Phone</th>
+                    <th style="    width: 20%;">Email</th>
+                    <!-- <th style="    width: 10%;">Last Contacted</th> -->
+                    <th>Lead Source</th>
+                    <th style="    width: 4%;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container
+                    *ngFor="let data of lead_list| paginate: { itemsPerPage: 10, currentPage: p2,id: 'two'};let index=index">
+                    <tr>
+                        <td style="cursor: pointer; text-align: center;"> <label class="container-checkbox">
+                                <input type="checkbox" class="checkedsingle" (click)="checkSingle($event)">
+                                <span class="checkmark"></span>
+                            </label></td>
+                        <td style="cursor: pointer;" (click)="viewDetails(data)"> <span>{{data.firstname}}
+                                &nbsp;{{data.lastname}}</span><br>
+                            <!-- <span class="location">Location</span> -->
+
+                        </td>
+                        <td style="cursor: pointer;" (click)="viewDetails(data)">{{data.countryphcode}} {{data.phonenumber}}</td>
+                        <td style="cursor: pointer;" (click)="viewDetails(data)">{{data.email}}</td>
+                        <!-- <td style="cursor: pointer;" (click)="viewDetails(data)">NA</td> -->
+                        <td style="cursor: pointer;" (click)="viewDetails(data)">  {{(data?.leadtype !=null && data?.leadtype !="") ? data?.leadtype : 'NA'}}</td>
+                        <td style=" cursor: pointer;   width: 4%;"><img src="assets/images/edit-tbl.svg"
+                                class="edit-tabl" (click)="Edit(data)"></td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+        <h4 *ngIf="lead_list?.length == 0" style="text-align:center;padding:200px 0px" class="text-center">Retail Contact not created yet
+            </h4>
+        <!-- <pagination-controls *ngIf="lead_list?.length >8" (pageChange)="p2 = $event" #api id="two" style="    font-size: 13px;
+float: right;">
+        </pagination-controls> -->
+        <div style="float: right;margin-bottom: 35px;" *ngIf="lead_list?.length > 0" >
+            <button [disabled]="currentPage == 1" class="btn btn-default paginationbtn"
+        (click)="paginatePartList('prev')"><i class="fa fa-angle-left"></i></button>
+    <span style="font-size: 15px;
+            padding: 10px;">
+        <input id="currentPageInput" class="paginatecontrol" type="text" value="{{currentPage}}"
+            style="width: 50px;">
+        <i class="fa fa-search searchbtn" style="border: 1px solid #979797;
+        padding: 5px 4px;
+        position: relative;
+        top: 1px;
+        background-color: #b7b7b7;" (click)="searchPage()"></i>
+        of
+        {{totalPages}}
+    </span>
+    
+    <button [disabled]="currentPage == totalPages" class="btn btn-default paginationbtn"
+        (click)="paginatePartList('next')"><i class="fa fa-angle-right"></i></button>
+        </div>
+    </div>
+</div>
+<div class="modal right fade" id="RetailleadEditModal" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form [formGroup]="Retailleadform">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel2">Edit Retail Contact</h4>
+                </div>
+
+                <div class="modal-body">
+
+
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="col-md-3">
+                                <h4 class="headstyle"> General Information</h4>
+                            </div>
+                            <div class="col-md-8 text-head">
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 margin-top">
+
+                            <div class="col-md-4">
+                                <div class="">
+                                    <label>First Name <span class="star text-danger">*</span></label>
+                                    <input type="text" class="form-control" formControlName="firstname"
+                                        (keypress)="keyAlphavalue($event)" autocomplete="off">
+                                    <small class="text-danger"
+                                        *ngIf="!Retailleadform.controls.firstname.valid && Retailleadform.controls.firstname.touched">First
+                                        Name
+                                        is required</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="">
+                                    <label>Middle Name </label>
+                                    <input type="text" class="form-control" formControlName="middlename"
+                                        (keypress)="keyAlphavalue($event)" autocomplete="off">
+                                    <!-- <small class="text-danger"
+                                                                                *ngIf="!BasicForm.controls.middleName.valid && BasicForm.controls.middleName.touched">Middle Name
+                                                                                is required</small> -->
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="">
+                                    <label>Last Name</label>
+                                    <input type="text" class="form-control" formControlName="lastname"
+                                        (keypress)="keyAlphavalue($event)" autocomplete="off">
+                                    <!-- <small class="text-danger"
+                                                                                    *ngIf="!BasicForm.controls.lastName.valid && BasicForm.controls.lastName.touched">Last
+                                                                                    Name
+                                                                                    is required</small> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 margin-top">
+                            <div class="col-md-4">
+                                <label>Email <span class="star text-danger">*</span></label>
+                                <input type="email" class="form-control" formControlName="email" autocomplete="off">
+                                <small class="text-danger"
+                                    *ngIf="!Retailleadform.controls.email.valid && Retailleadform.controls.email.touched">Email
+                                    is required</small>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Phone Number <span class="star text-danger">*</span></label>
+                
+                                <input type="text" class="form-control" formControlName="countryphcode" style="position: absolute;
+                                bottom: 0; left: 15px;     width: 30%; padding: 0;  padding-left: 2px;" list="phn"
+                                    (input)="PhoneCode($event.target.value);hidedropdown()">
+                                <input type="text" class="form-control" formControlName="phonenumber" autocomplete="off"
+                                    maxlength="13" style="    width: 66%; float: right;" (keypress)="keyAlpha($event)">
+                                <datalist id="phn">
+                                    <ng-container *ngFor="let list of countriesArray">
+                                        <option value="{{list.code}}">{{list.name}}</option>
+                                    </ng-container>
+                                </datalist>
+                                <span>
+                                  <small class="text-danger"  style="position: absolute; bottom: -20px; width: 100%;right: -19px;"
+                                    *ngIf="!Retailleadform.controls.phonenumber.valid && Retailleadform.controls.phonenumber.touched">Phone
+                                    Number
+                                    is required </small>
+                                </span>
+                
+                                <!-- <span class="alt-num" style="margin-top: 10px;" (click)="altnumber()"><img
+                                                                                                    src="assets/images/plus-circle.png">&nbsp;&nbsp; Add Alternate Phone
+                                                                                                Number</span> -->
+                              </div>
+                              <div class="col-md-4">
+                                <label>Alternate Phone Number</label>
+                
+                                <input type="text" class="form-control" formControlName="altercountryphcode" style="position: absolute;
+                                bottom: 0; left: 15px;     width: 30%; padding: 0;  padding-left: 2px;" list="phnalt">
+                                <input type="text" class="form-control" formControlName="alterphonenum"
+                                    autocomplete="off" maxlength="13" style="     width: 66%;  float: right;"
+                                    (keypress)="keyAlpha($event)">
+
+                                <datalist id="phnalt">
+                                    <ng-container *ngFor="let list of countriesArray">
+                                        <option value="{{list.code}}">{{list.name}}</option>
+                                    </ng-container>
+                                </datalist>
+                                  <small class="text-danger"
+                                  *ngIf="!Retailleadform.controls.alterphonenum.valid && Retailleadform.controls.alterphonenum.touched">Alternate Phone
+                                  Number
+                                  is required</small>
+                              </div>
+
+                        </div>
+                        <div class="col-md-12 margin-top">
+                            <div class="col-md-4">
+                                <p class="headsradio">Gender</p>
+                                <label class="radio-inline">
+                                    <input type="radio" formControlName="gender"
+                                        (change)="GenderRole($event.target.value)" value="male" checked>&nbsp;&nbsp;Male
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" formControlName="gender"
+                                        (change)="GenderRole($event.target.value)" value="female">&nbsp;&nbsp;Female
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <label>DOB </label>
+                                <input type="text" placement="bottom" class="form-control" bsDatepicker
+                                    [bsConfig]="{ adaptivePosition: true,dateInputFormat: 'DD-MM-YYYY', showWeekNumbers:false }"
+                                    formControlName="dob" id="datedobcdd" autocomplete="off" placeholder="DD-MM-YYYY">
+                            </div>
+                            <div class="col-md-4">
+                                <label>Place of Birth </label>
+                                <input type="text" class="form-control" formControlName="placeofbirth"
+                                    autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="col-md-12 margin-top">
+                            <div class="col-md-4 headcontact">
+                                <h4 class="headstyle"> Lead Information</h4>
+                            </div>
+                            <div class="col-md-8 text-headinfo">
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 margin-top">
+
+                            <div class="col-md-3 ">
+                                <p class="headsradio">Lead Type</p>
+                                <label class="radio-inline">
+                                    <input type="radio" formControlName="userrole"
+                                        (change)="ChooseRole($event.target.value)" value="professional"
+                                        checked>&nbsp;&nbsp;Professional
+                                </label>
+                            </div>
+                            <div class="col-md-3 radiostyle">
+                                <label class="radio-inline">
+                                    <input type="radio" value="fresher" formControlName="userrole"
+                                        (change)="ChooseRole($event.target.value)">&nbsp;&nbsp;Fresher
+                                </label>
+
+                            </div>
+                            <div class="col-md-6">
+                                <ng-container *ngIf="professional == true">
+                                    <label>Company Name</label>
+                                    
+                                    <input type="text" class="form-control" formControlName="orgname"   (keypress)="keyAlphavalue($event)"
+                                        autocomplete="off">
+                                        </ng-container>
+                                        <ng-container *ngIf="fresher == true">
+                                          <label>Institute Name</label>
+                                          
+                                          <input type="text" class="form-control" formControlName="orgname"   (keypress)="keyAlphavalue($event)"
+                                              autocomplete="off">
+                                              </ng-container>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 margin-top">
+
+                            <div class="col-md-6">
+                                <label>Lead Source</label>
+                                <select class="form-control" formControlName="leadtype" autocomplete="off"
+                                    (change)="ChangeLeadType($event.target.value)">
+                                    <option value=null selected disabled> Select
+                                        Lead
+                                        Source
+                                    </option>
+                                    <option value="Advertisement">Advertisement
+                                    </option>
+                                    <option value="Cold Call">Cold Call</option>
+                                    <option value="Employee Referral">Employee
+                                        Referral
+                                    </option>
+                                    <option value="External Referral">External
+                                        Referral
+                                    </option>
+                                    <option value="Social Media">Social Media
+                                    </option>
+                                    <option value="others">Others
+                                    </option>
+                                </select>
+                            </div>
+
+                            <ng-container *ngIf="employeename">
+
+                                <div class="col-md-6">
+                                    <label>Employee Name</label>
+
+                                    <select class="form-control" formControlName="additionalinfo">
+                                        <option value=null selected disabled>Select
+                                            Name</option>
+                                        <ng-container *ngFor="let data of lead_list">
+                                            <option value="{{data._id}}">
+                                                {{data.name}}</option>
+                                        </ng-container>
+                                    </select>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="employeename1">
+
+                                <div class="col-md-6">
+                                    <label>Additional Lead Info</label>
+                                    <input class="form-control" formControlName="additionalinfo"
+                                        (keypress)="keyAlphavalue($event)">
+                                </div>
+                            </ng-container>
+
+                        </div>
+
+                        <div class="col-md-12 margin-top">
+                            <div class="col-md-3">
+
+                                <div class="panel-headingnew" role="tab" id="headingThreein">
+                                    <h4 class="panel-titlenew">
+                                        <a class="" role="button">
+                                            <span class="headstyle">
+                                                &nbsp;Billing Information&nbsp;
+                                            </span>
+                                        </a>
+                                    </h4>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5 ">
+
+                            </div>
+                            <div class="col-md-4">
+
+
+                                <span class="headstyle" (click)="Billsicon()">
+                                    <ng-container *ngIf="showicon == false">
+                                        <i class="	fa fa-angle-down" style="color:#1c8742"></i>
+                                    </ng-container>
+                                    <ng-container *ngIf="showicon == true">
+                                        <i class="	fa fa-angle-up" style="color:#1c8742"></i>
+                                    </ng-container>
+                                    &nbsp;Add Billing Information&nbsp;
+                                </span>
+
+                            </div>
+
+                        </div>
+                        <div *ngIf="showicon == true">
+                            <div class="col-md-12 margin-top">
+                                <div class="col-md-4">
+                                    <div class="">
+                                        <label>Door No</label>
+                                        <input type="text" class="form-control" formControlName="doorno"
+                                            autocomplete="off" placeholder="">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="">
+                                        <label>Street</label>
+                                        <input type="text" class="form-control" formControlName="street"
+                                            autocomplete="off" placeholder="">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Country</label>
+
+                                    <input type="text" class="form-control" formControlName="country" list="data"
+                                        autocomplete="off" placeholder="">
+                                    <datalist id="data">
+                                        <!-- <ng-container *ngFor="let value of country"> -->
+                                        <option value=""></option>
+                                        <!-- </ng-container> -->
+                                    </datalist>
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-md-12 margin-top">
+                                <div class="col-md-4">
+                                    <div class="">
+                                        <label>State</label>
+                                        <input type="text" class="form-control" formControlName="state" list="catedata"
+                                            autocomplete="off" id="searchglobalstate" placeholder="">
+
+                                        <datalist id="catedata">
+                                            <!-- <ng-container *ngFor="let data of state"> -->
+                                            <option value=""></option>
+                                            <!-- </ng-container> -->
+                                        </datalist>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="">
+
+                                        <label>City</label>
+                                        <input type="text" class="form-control" formControlName="city" list="citydata"
+                                            autocomplete="off" placeholder="">
+
+                                        <datalist id="citydata">
+                                            <!-- <ng-container *ngFor="let data of city"> -->
+                                            <option value=""></option>
+                                            <!-- </ng-container> -->
+                                        </datalist>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label>Pincode</label>
+                                    <input type="text" class="form-control" autocomplete="off" maxlength="6"
+                                        formControlName="pincode" (keypress)="keyAlpha($event)" />
+
+                                </div>
+                            </div>
+                        </div>
+                   
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="modal-footer basic-footer ">
+
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-sm btn-danger" id="btn-cancel" data-dismiss="modal"
+                                (click)="cancelModal()">Cancel</button>&nbsp;&nbsp;
+                            <button type="submit" class="btn btn-save btn-sm" id="btn-update"
+                                (click)="submitRetaillead()">Submit</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div>
