@@ -23,7 +23,7 @@
     "@angular/service-worker": "^7.0.0",
     "@syncfusion/ej2": "^17.4.40",
     "@syncfusion/ej2-angular-grids": "^17.4.40",
-    "angular": "^1.7.9",
+    "angular": "^1.8.0",
     "angular-6-datatable": "^0.8.0",
     "angular-highcharts": "^8.0.3",
     "bootstrap": "^3.4.1",
